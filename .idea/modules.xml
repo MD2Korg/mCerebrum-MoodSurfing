@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../mCerebrum-DataKitAPI/datakitapi/datakitapi.iml" filepath="$PROJECT_DIR$/../mCerebrum-DataKitAPI/datakitapi/datakitapi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mCerebrum-MoodSurfing.iml" filepath="$PROJECT_DIR$/mCerebrum-MoodSurfing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/moodsurfing/moodsurfing.iml" filepath="$PROJECT_DIR$/moodsurfing/moodsurfing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../mCerebrum-Utilities/utilities/utilities.iml" filepath="$PROJECT_DIR$/../mCerebrum-Utilities/utilities/utilities.iml" />
+    </modules>
+  </component>
+</project>

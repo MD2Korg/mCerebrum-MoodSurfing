@@ -1,0 +1,194 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
+
+    <!-- Dummy content. -->
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:src="@drawable/moodsurfing_icon"
+            android:layout_gravity="center" />
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:id="@+id/imageView2" />
+
+        <TextView style="?android:textAppearanceMedium"
+            android:id="@+id/textViewDescription"
+            android:lineSpacingMultiplier="1.2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+
+        <Space
+            android:id="@+id/space"
+            android:layout_width="match_parent"
+            android:layout_height="40px" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id = "@+id/layout_horizontal_multiple_choice"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:layout_weight="1"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp">
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Small"
+                    android:id="@+id/toggleButton_small"
+                    android:textOff="Small"
+                    android:textOn="Small"
+                    android:maxWidth="130dp"
+                    android:minWidth="130dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="or"
+                    android:layout_weight="1"
+                    android:gravity="center" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Large"
+                    android:id="@+id/toggleButton_large"
+                    android:textOff="Large"
+                    android:textOn="Large"
+                    android:maxWidth="130dp"
+                    android:minWidth="130dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:layout_weight="1"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Smooth"
+                    android:id="@+id/toggleButton_smooth"
+                    android:textOff="Smooth"
+                    android:textOn="Smooth"
+                    android:maxWidth="130dp"
+                    android:minWidth="130dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="or"
+                    android:layout_weight="1"
+                    android:gravity="center" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rough"
+                    android:id="@+id/toggleButton_rough"
+                    android:textOff="Rough"
+                    android:textOn="Rough"
+                    android:maxWidth="130dp"
+                    android:minWidth="130dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:layout_weight="1"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Soft"
+                    android:id="@+id/toggleButton_soft"
+                    android:textOff="Soft"
+                    android:textOn="Soft"
+                    android:maxWidth="130dp"
+                    android:minWidth="130dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="or"
+                    android:layout_weight="1"
+                    android:gravity="center" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hard"
+                    android:id="@+id/toggleButton_hard"
+                    android:textOff="Hard"
+                    android:textOn="Hard"
+                    android:maxWidth="130dp"
+                    android:minWidth="130dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:layout_weight="1"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Heavy"
+                    android:id="@+id/toggleButton_heavy"
+                    android:textOff="Heavy"
+                    android:textOn="Heavy"
+                    android:maxWidth="130dp"
+                    android:minWidth="130dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="or"
+                    android:layout_weight="1"
+                    android:gravity="center" />
+
+                <ToggleButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Light"
+                    android:id="@+id/toggleButton_light"
+                    android:textOff="Light"
+                    android:textOn="Light"
+                    android:maxWidth="130dp"
+                    android:minWidth="130dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
