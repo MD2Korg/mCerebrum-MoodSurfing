@@ -12,8 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import org.md2k.dklibrary.Logger.Log;
-import org.md2k.dklibrary.functions.DateTime;
+import org.md2k.utilities.Report.Log;
+import org.md2k.datakitapi.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.Random;

@@ -1,7 +1,7 @@
 package org.md2k.moodsurfing;
 
 
-import org.md2k.dklibrary.Logger.Log;
+import org.md2k.utilities.Report.Log;
 
 import java.io.Serializable;
 import java.util.ArrayList;

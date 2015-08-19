@@ -16,7 +16,7 @@ import android.view.Window;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-import org.md2k.dklibrary.Logger.Log;
+import org.md2k.utilities.Report.Log;
 
 public class ActivityMoodSurfingExercise extends Activity {
     private static final String TAG = ActivityMoodSurfingExercise.class.getSimpleName();
