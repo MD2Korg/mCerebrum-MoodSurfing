@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppThemeLight">
         <activity
-            android:name=".ActivityMoodSurfing"
+            android:name=".ActivityMoodSurfingExercises"
             android:label="@string/app_name">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
@@ -16,9 +16,6 @@
         </intent-filter>
         </activity>
 
-        <activity android:name=".ActivityMoodSurfingExercises"
-            android:label="@string/app_name">
-        </activity>
         <activity android:name=".ActivityMoodSurfingExerciseBegin"
             android:parentActivityName=".ActivityMoodSurfingExercises"
             android:label="@string/app_name">

@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Dummy content. -->
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -25,16 +24,26 @@
             android:id="@+id/space"
             android:layout_width="match_parent"
             android:layout_height="40px" />
-
         <LinearLayout
-            android:id = "@+id/layout_horizontal_multiple_choice"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal"
-            >
+            android:layout_height="match_parent">
+            <GridView
+                android:id="@+id/gridViewColors"
+                android:layout_width="match_parent"
+                android:layout_height="1200px"
+                android:horizontalSpacing="4dp"
+                android:numColumns="6"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="4dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:choiceMode="singleChoice"
+                android:drawSelectorOnTop="true"
+                android:focusableInTouchMode="true"
+                android:listSelector="@drawable/list_selector">
+            </GridView>
 
         </LinearLayout>
+
     </LinearLayout>
 </ScrollView>

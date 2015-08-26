@@ -35,6 +35,8 @@ public class Questions {
     public static final String MULTIPLE_CHOICE = "multiple_choice";
     public static final String MULTIPLE_SELECT = "multiple_select";
     public static final String IMAGE = "image";
+    public static final String COLOR = "color";
+
 
     public static final String MULTIPLE_SELECT_SPECIAL = "multiple_select_special";
 
@@ -66,7 +68,7 @@ public class Questions {
             new Question(3, "People manage unpleasant thoughts or emotions in various ways. The following is a useful exercise that can help people notice how they feel when they are stressed without trying to change it or make it go away.", null, null, new ArrayList<String>(Arrays.asList(new String[] {"1:No"}))),
             new Question(4, "Take a moment and try to visualize a thought or an emotion that you are currently having as a tangible object.", null, null, null),
             new Question(5, "Imagine it placed on a table before you. Look at it for a couple of seconds.\n\nWhat does it look like?\n\n Continue observing it and answer the following questions:", null, null, null),
-            new Question(6, "Is it...\n(Please select)", MULTIPLE_SELECT_SPECIAL, null, null),
+            new Question(6, "Is it...\n(Please select)", COLOR, null, null),
             new Question(7, "What color is it?\n(Please select)", null, null, null),
             new Question(8, "Does it have a shape?\n(Please select)", MULTIPLE_CHOICE, new ArrayList<String>(Arrays.asList(new String[]{"Yes", "No"})), null),
             new Question(9, "Using your imagination to visualize negative thoughts or emotions as concrete objects can be a powerful tool.\n\nYou can use it at any time to learn to accept the existence of you thoughts and feelings and distance yourself from them.", null, null, null),
@@ -92,7 +94,7 @@ public class Questions {
     private Question[] surfTheMood = new Question[]{
             new Question(0, "Sometimes unpleasant emotions can become very intense and seem somewhat overpowering.\n\nIf this happens, you can imagine these emotions as a wave. Let me guide you through this exercise.", null, null, null),
             new Question(1, "Begin by relaxing and just focusing on the presence of your emotions. Do not pass judgement; just acknowledge them.", null, null, null),
-            new Question(2, "Imagine your unpleasant emotions as a wave, rising, peaking, and then fading away.", Questions.IMAGE, new ArrayList<String>(Arrays.asList(new String[]{"wave"})), null),
+            new Question(2, "Imagine your unpleasant emotions as a wave, rising, peaking, and then fading away.", IMAGE, new ArrayList<String>(Arrays.asList(new String[]{"wave"})), null),
             new Question(3, "Imagine yourself riding that wave. Simply be aware of the movement as it washes through you.\nBe aware of the sensations without reacting.", Questions.IMAGE, new ArrayList<String>(Arrays.asList(new String[]{"react"})), null),
             new Question(4, "Continue being aware of your emotions as the ebb and flow like waves.\nImagine yourself riding those waves, being present but not reacting as they peak and then fade.", Questions.IMAGE,new ArrayList<String>(Arrays.asList( new String[]{"peak"})), null),
             new Question(5, "Do you think this exercise can be useful in dealing with your unpleasant emotions? (Please select)", MULTIPLE_CHOICE, new ArrayList<String>(Arrays.asList(new String[]{"Yes", "No"})), null),

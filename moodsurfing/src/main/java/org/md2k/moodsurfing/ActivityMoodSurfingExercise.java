@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.app.NavUtils;
@@ -51,7 +52,8 @@ public class ActivityMoodSurfingExercise extends Activity {
     private PagerAdapter mPagerAdapter;
     private int exerciseType;
     Question[] questions = null;
-
+    MediaPlayer mPlayer;
+    boolean isPlayed;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +78,7 @@ public class ActivityMoodSurfingExercise extends Activity {
             }
         });
         getActionBar().setDisplayHomeAsUpEnabled(true);
-
+        mPlayer = MediaPlayer.create(ActivityMoodSurfingExercise.this, R.raw.ut_full_if_yes);
     }
 
     @Override
@@ -93,10 +95,9 @@ public class ActivityMoodSurfingExercise extends Activity {
                         ? R.string.action_finish
                         : R.string.action_next);
         if(mPager.getCurrentItem()==mPagerAdapter.getCount()-1)
-            item.setIcon((R.drawable.ic_done_black_24dp));
+            item.setTitle("Finish");
         else
-        item.setIcon(R.drawable.ic_keyboard_arrow_right_black_48dp);
-
+        item.setTitle("Next");
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
         return true;
     }
@@ -123,8 +124,6 @@ public class ActivityMoodSurfingExercise extends Activity {
                                 return true;
                             case R.id.action_supporting_literature:
                                 return true;
-                            case R.id.action_settings:
-                                return true;
                             default:
                                 return false;
                         }
@@ -140,7 +139,13 @@ public class ActivityMoodSurfingExercise extends Activity {
                 mPager.getAdapter().notifyDataSetChanged();
                 mPager.setCurrentItem(findValidQuestionPrevious(mPager.getCurrentItem()));
                 return true;
+            case R.id.action_audio:
 
+                if(mPlayer.isPlaying())
+                    mPlayer.pause();
+                else
+                    mPlayer.start();
+                break;
             case R.id.action_next:
                 // Advance to the next step in the wizard. If there is no next step, setCurrentItem
                 // will do nothing.
@@ -197,6 +202,8 @@ public class ActivityMoodSurfingExercise extends Activity {
             Log.d(TAG, "getItem(): position=" + position);
             if (questions[position].isType(Questions.MULTIPLE_SELECT_SPECIAL))
                 return FragmentHorizontalMultipleSelectSpecial.create(exerciseType, position);
+            else if(questions[position].isType(Questions.COLOR))
+                return FragmentChoiceColor.create(exerciseType, position);
             else return FragmentChoiceSelectImage.create(exerciseType, position);
         }
 

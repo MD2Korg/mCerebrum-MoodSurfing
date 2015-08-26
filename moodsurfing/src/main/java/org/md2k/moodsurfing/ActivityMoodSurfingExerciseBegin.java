@@ -90,8 +90,6 @@ public class ActivityMoodSurfingExerciseBegin extends Activity {
                                 return true;
                             case R.id.action_supporting_literature:
                                 return true;
-                            case R.id.action_settings:
-                                return true;
                             default:
                                 return false;
                         }

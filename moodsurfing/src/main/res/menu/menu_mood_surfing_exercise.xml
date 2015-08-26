@@ -3,6 +3,10 @@
     <!-- Adds an item to the list. -->
     <item android:id="@+id/action_previous"
         android:title="@string/action_previous"
-        android:icon="@drawable/ic_keyboard_arrow_left_black_48dp"
         android:showAsAction="ifRoom|withText" />
+    <item android:id="@+id/action_audio"
+        android:icon="@drawable/ic_volume_up_black_48dp"
+        android:title="Play"
+        android:showAsAction="ifRoom|withText" />
+
 </menu>
