@@ -52,7 +52,6 @@ public class ActivityMoodSurfingExercise extends Activity {
     private PagerAdapter mPagerAdapter;
     private int exerciseType;
     Question[] questions = null;
-    MediaPlayer mPlayer;
     boolean isPlayed;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +77,6 @@ public class ActivityMoodSurfingExercise extends Activity {
             }
         });
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        mPlayer = MediaPlayer.create(ActivityMoodSurfingExercise.this, R.raw.ut_full_if_yes);
     }
 
     @Override
@@ -136,6 +134,7 @@ public class ActivityMoodSurfingExercise extends Activity {
                 // Go to the previous step in the wizard. If there is no previous step,
                 // setCurrentItem will do nothing.
                 Log.d(TAG, "Previous button: " + mPager.getCurrentItem());
+                if(mPlayer.isPlaying()) mPlayer.stop();
                 mPager.getAdapter().notifyDataSetChanged();
                 mPager.setCurrentItem(findValidQuestionPrevious(mPager.getCurrentItem()));
                 return true;
@@ -164,6 +163,7 @@ public class ActivityMoodSurfingExercise extends Activity {
                     mPager.getAdapter().notifyDataSetChanged();
                     mPager.setCurrentItem(findValidQuestionNext(mPager.getCurrentItem()));
                 }
+                if(mPlayer.isPlaying()) mPlayer.stop();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -191,7 +191,9 @@ public class ActivityMoodSurfingExercise extends Activity {
     }
 
 
-
+    @Override
+    public void onBackPressed() {
+    }
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         public ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);

@@ -1,6 +1,7 @@
 package org.md2k.moodsurfing;
 
 import android.app.Fragment;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -52,13 +53,14 @@ import java.util.Random;
  * A fragment representing a single step in a wizard. The fragment shows a dummy title indicating
  * the page number, along with some dummy text.
  */
-public class FragmentChoiceColor extends Fragment {
+public class FragmentChoiceColor extends FragmentBase {
     /**
      * The argument key for the page number this fragment represents.
      */
     public static final String ARG_PAGE = "page";
     public static final String ARG_TYPE = "type";
     private static final String TAG = FragmentChoiceColor.class.getSimpleName();
+    MediaPlayer mPlayer;
 
     /**
      * The fragment's page number, which is set to the argument value for {@link #ARG_PAGE}.

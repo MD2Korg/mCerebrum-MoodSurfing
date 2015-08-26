@@ -44,6 +44,7 @@ public class Question implements Serializable {
     private ArrayList<String> question_responses_selected;
     private String question_responses_selected_random;
     private long prompt_time;
+    private int audio_R_raw;
     boolean hasResponseSelected(String response){
         if(question_responses_selected==null) return false;
         for(int i=0;i<question_responses_selected.size();i++)
@@ -51,7 +52,7 @@ public class Question implements Serializable {
         return false;
     }
 
-    public Question(int question_id, String question_text, String question_type, ArrayList<String> question_responses, ArrayList<String> condition) {
+    public Question(int question_id, String question_text, String question_type, ArrayList<String> question_responses, ArrayList<String> condition, int audio_R_raw) {
         this.question_responses_selected_random="";
         this.question_id = question_id;
         this.question_type = question_type;
@@ -60,6 +61,7 @@ public class Question implements Serializable {
         this.condition = condition;
         this.question_responses_selected = new ArrayList<>();
         prompt_time = -1;
+        this.audio_R_raw=audio_R_raw;
     }
 
     public int getQuestion_id() {
