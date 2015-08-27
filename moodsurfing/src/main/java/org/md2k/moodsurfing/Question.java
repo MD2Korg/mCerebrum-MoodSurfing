@@ -101,6 +101,10 @@ public class Question implements Serializable {
         this.question_responses = question_responses;
     }
 
+    public int getAudio_R_raw() {
+        return audio_R_raw;
+    }
+
     public ArrayList<String> getCondition() {
         return condition;
     }

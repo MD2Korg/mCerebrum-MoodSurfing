@@ -54,44 +54,21 @@ import java.util.Random;
  * the page number, along with some dummy text.
  */
 public class FragmentChoiceColor extends FragmentBase {
-    /**
-     * The argument key for the page number this fragment represents.
-     */
-    public static final String ARG_PAGE = "page";
-    public static final String ARG_TYPE = "type";
     private static final String TAG = FragmentChoiceColor.class.getSimpleName();
-    MediaPlayer mPlayer;
 
-    /**
-     * The fragment's page number, which is set to the argument value for {@link #ARG_PAGE}.
-     */
-    private int mPageNumber;
-    private int mExerciseType;
 
     /**
      * Factory method for this fragment class. Constructs a new fragment for the given page number.
      */
     public static FragmentChoiceColor create(int exerciseType, int pageNumber) {
         FragmentChoiceColor fragment = new FragmentChoiceColor();
-        Bundle args = new Bundle();
-        args.putInt(ARG_PAGE, pageNumber);
-        args.putInt(ARG_TYPE, exerciseType);
-        fragment.setArguments(args);
+        fragment.setArguments(getArgument(exerciseType,pageNumber));
         return fragment;
-    }
-
-    public FragmentChoiceColor() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPageNumber = getArguments().getInt(ARG_PAGE);
-        mExerciseType = getArguments().getInt(ARG_TYPE);
-    }
-    void setQuestionText(ViewGroup rootView, Question question) {
-        String question_text = question.getQuestion_text();
-        ((TextView) rootView.findViewById(R.id.textViewDescription)).setText(question_text);
     }
 
     @Override
@@ -100,7 +77,6 @@ public class FragmentChoiceColor extends FragmentBase {
         Log.d(TAG, "onCreateView() mPageNumber=" + mPageNumber);
         final ViewGroup rootView = (ViewGroup) inflater
                 .inflate(R.layout.fragment_screen_choice_color, container, false);
-        Question question = Questions.getInstance().getQuestion(mExerciseType, mPageNumber);
         question.setPrompt_time(DateTime.getDateTime());
         setQuestionText(rootView, question);
         GridView gridViewColors = (GridView) rootView.findViewById(R.id.gridViewColors);

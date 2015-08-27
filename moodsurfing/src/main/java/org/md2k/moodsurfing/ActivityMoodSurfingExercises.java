@@ -47,8 +47,9 @@ public class ActivityMoodSurfingExercises extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ActivityMoodSurfingExercises.this, ActivityMoodSurfingExerciseBegin.class);
+                Intent intent = new Intent(ActivityMoodSurfingExercises.this, ActivityMoodSurfingExercise.class);
                 intent.putExtra("type", Constants.USE_YOUR_IMAGINATION);
+                Questions.getInstance().clear(Constants.USE_YOUR_IMAGINATION);
                 startActivity(intent);
             }
         });
@@ -57,8 +58,9 @@ public class ActivityMoodSurfingExercises extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ActivityMoodSurfingExercises.this, ActivityMoodSurfingExerciseBegin.class);
+                Intent intent = new Intent(ActivityMoodSurfingExercises.this, ActivityMoodSurfingExercise.class);
                 intent.putExtra("type", Constants.NOTICE_AND_ACCEPT);
+                Questions.getInstance().clear(Constants.NOTICE_AND_ACCEPT);
                 startActivity(intent);
             }
         });
@@ -66,8 +68,9 @@ public class ActivityMoodSurfingExercises extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ActivityMoodSurfingExercises.this, ActivityMoodSurfingExerciseBegin.class);
+                Intent intent = new Intent(ActivityMoodSurfingExercises.this, ActivityMoodSurfingExercise.class);
                 intent.putExtra("type", Constants.SURF_THE_MOOD);
+                Questions.getInstance().clear(Constants.SURF_THE_MOOD);
                 startActivity(intent);
             }
         });
@@ -92,7 +95,6 @@ public class ActivityMoodSurfingExercises extends Activity {
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.action_home:
-//                                NavUtils.navigateUpTo(ActivityMoodSurfingExerciseBegin.this, new Intent(ActivityMoodSurfingExerciseBegin.this, ActivityMoodSurfingExercises.class));
                                 return true;
                             case R.id.action_supporting_literature:
                                 return true;

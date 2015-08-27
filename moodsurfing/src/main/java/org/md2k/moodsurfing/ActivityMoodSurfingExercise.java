@@ -23,17 +23,17 @@ import org.md2k.utilities.Report.Log;
  * Copyright (c) 2015, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
  * All rights reserved.
- *
+ * <p/>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *
+ * <p/>
  * * Redistributions of source code must retain the above copyright notice, this
  * list of conditions and the following disclaimer.
- *
+ * <p/>
  * * Redistributions in binary form must reproduce the above copyright notice,
  * this list of conditions and the following disclaimer in the documentation
  * and/or other materials provided with the distribution.
- *
+ * <p/>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -48,16 +48,17 @@ import org.md2k.utilities.Report.Log;
 public class ActivityMoodSurfingExercise extends Activity {
     private static final String TAG = ActivityMoodSurfingExercise.class.getSimpleName();
     private NonSwipeableViewPager mPager;
+    FragmentBase fragmentBase;
 
     private PagerAdapter mPagerAdapter;
     private int exerciseType;
     Question[] questions = null;
-    boolean isPlayed;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         exerciseType = getIntent().getIntExtra("type", -1);
-        questions=Questions.getInstance().getQuestions(exerciseType);
+        questions = Questions.getInstance().getQuestions(exerciseType);
         setContentView(R.layout.activity_mood_surfing_exercise);
         setTitle(Constants.BEGIN_TITLE[exerciseType]);
 
@@ -81,9 +82,9 @@ public class ActivityMoodSurfingExercise extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        Log.d(TAG,"Activity -> onCreateOptionsMenu");
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_mood_surfing_exercise, menu);
-
         menu.findItem(R.id.action_previous).setEnabled(mPager.getCurrentItem() > 0);
 
         // Add either a "next" or "finish" button to the action bar, depending on which page
@@ -92,10 +93,10 @@ public class ActivityMoodSurfingExercise extends Activity {
                 (mPager.getCurrentItem() == mPagerAdapter.getCount() - 1)
                         ? R.string.action_finish
                         : R.string.action_next);
-        if(mPager.getCurrentItem()==mPagerAdapter.getCount()-1)
+        if (mPager.getCurrentItem() == mPagerAdapter.getCount() - 1)
             item.setTitle("Finish");
         else
-        item.setTitle("Next");
+            item.setTitle("Next");
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
         return true;
     }
@@ -119,31 +120,25 @@ public class ActivityMoodSurfingExercise extends Activity {
                         switch (item.getItemId()) {
                             case R.id.action_home:
                                 NavUtils.navigateUpTo(ActivityMoodSurfingExercise.this, new Intent(ActivityMoodSurfingExercise.this, ActivityMoodSurfingExercises.class));
-                                return true;
+                                break;
                             case R.id.action_supporting_literature:
-                                return true;
+                                break;
                             default:
-                                return false;
+                                break;
                         }
+                        return true;
                     }
                 });
-
                 popup.show();
-                return true;
+                break;
             case R.id.action_previous:
                 // Go to the previous step in the wizard. If there is no previous step,
                 // setCurrentItem will do nothing.
+                Log.d(TAG, "activity -> onOptionsItemSelected -> previous");
+
                 Log.d(TAG, "Previous button: " + mPager.getCurrentItem());
-                if(mPlayer.isPlaying()) mPlayer.stop();
                 mPager.getAdapter().notifyDataSetChanged();
                 mPager.setCurrentItem(findValidQuestionPrevious(mPager.getCurrentItem()));
-                return true;
-            case R.id.action_audio:
-
-                if(mPlayer.isPlaying())
-                    mPlayer.pause();
-                else
-                    mPlayer.start();
                 break;
             case R.id.action_next:
                 // Advance to the next step in the wizard. If there is no next step, setCurrentItem
@@ -152,19 +147,17 @@ public class ActivityMoodSurfingExercise extends Activity {
                 Log.d(TAG, "Next button" + " current=" + mPager.getCurrentItem());
                 if (!questions[mPager.getCurrentItem()].isValid()) {
                     Toast.makeText(getBaseContext(), "Please answer the question first", Toast.LENGTH_SHORT).show();
-                    return true;
                 }
-                if (mPager.getCurrentItem() >= questions.length - 1) {
+                else if (mPager.getCurrentItem() >= questions.length - 1) {
                     Questions.getInstance().destroy();
                     //TODO: send data to datakit
                     finish();
                 }
-                if (questions[mPager.getCurrentItem()].isValid()) {
+                else if (questions[mPager.getCurrentItem()].isValid()) {
                     mPager.getAdapter().notifyDataSetChanged();
                     mPager.setCurrentItem(findValidQuestionNext(mPager.getCurrentItem()));
                 }
-                if(mPlayer.isPlaying()) mPlayer.stop();
-                return true;
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -194,6 +187,7 @@ public class ActivityMoodSurfingExercise extends Activity {
     @Override
     public void onBackPressed() {
     }
+
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         public ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);
@@ -202,11 +196,12 @@ public class ActivityMoodSurfingExercise extends Activity {
         @Override
         public Fragment getItem(int position) {
             Log.d(TAG, "getItem(): position=" + position);
-            if (questions[position].isType(Questions.MULTIPLE_SELECT_SPECIAL))
-                return FragmentHorizontalMultipleSelectSpecial.create(exerciseType, position);
-            else if(questions[position].isType(Questions.COLOR))
-                return FragmentChoiceColor.create(exerciseType, position);
-            else return FragmentChoiceSelectImage.create(exerciseType, position);
+            if (questions[position].isType(Questions.MULTIPLE_SELECT_SPECIAL)) {
+                fragmentBase = FragmentHorizontalMultipleSelectSpecial.create(exerciseType, position);
+            } else if (questions[position].isType(Questions.COLOR))
+                fragmentBase = FragmentChoiceColor.create(exerciseType, position);
+            else fragmentBase = FragmentChoiceSelectImage.create(exerciseType, position);
+            return fragmentBase;
         }
 
         @Override
@@ -215,6 +210,7 @@ public class ActivityMoodSurfingExercise extends Activity {
                 return questions.length;
             else return 0;
         }
+
         @Override
         public int getItemPosition(Object object) {
             return POSITION_NONE;
