@@ -5,6 +5,8 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
@@ -55,7 +57,7 @@ public class FragmentHorizontalMultipleSelectSpecial extends FragmentBase {
      */
     public static FragmentHorizontalMultipleSelectSpecial create(int exerciseType, int pageNumber) {
         FragmentHorizontalMultipleSelectSpecial fragment = new FragmentHorizontalMultipleSelectSpecial();
-        fragment.setArguments(getArgument(exerciseType,pageNumber));
+        fragment.setArguments(getArgument(exerciseType, pageNumber));
         return fragment;
     }
 
@@ -72,26 +74,27 @@ public class FragmentHorizontalMultipleSelectSpecial extends FragmentBase {
         final ViewGroup rootView = (ViewGroup) inflater
                 .inflate(R.layout.fragment_screen_horizontal_multiple_select_special, container, false);
         LinearLayout ll = (LinearLayout) rootView.findViewById(R.id.layout_horizontal_multiple_choice);
-        setQuestionText(rootView,question);
+        setQuestionText(rootView, question);
 
         setListener(rootView);
         return rootView;
     }
 
-    void setListenerT1T2T3(final ToggleButton t1, final ToggleButton t2, final ToggleButton t3) {
+    void setListenerT1T2T3(final ToggleButton t1, final ToggleButton t2, final ToggleButton t3,final String textDontKnow) {
         t1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    question.getQuestion_responses_selected().remove(t1.getTextOn().toString());
-                    question.getQuestion_responses_selected().add(t1.getTextOn().toString());
-                    question.getQuestion_responses_selected().remove(t2.getTextOn().toString());
-                    question.getQuestion_responses_selected().remove(t3.getTextOn().toString());
+                    question.getQuestion_responses_selected().remove(t1.getText().toString());
+                    question.getQuestion_responses_selected().add(t1.getText().toString());
+                    question.getQuestion_responses_selected().remove(t2.getText().toString());
+                    question.getQuestion_responses_selected().remove(textDontKnow);
                     t2.setChecked(false);
                     t3.setChecked(false);
                 } else {
-                    question.getQuestion_responses_selected().remove(t1.getTextOn().toString());
+                    question.getQuestion_responses_selected().remove(t1.getText().toString());
                 }
+                updateNext(isAnswered());
                 Log.d(TAG, "size=" + question.getQuestion_responses_selected().size());
             }
         });
@@ -99,15 +102,17 @@ public class FragmentHorizontalMultipleSelectSpecial extends FragmentBase {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    question.getQuestion_responses_selected().remove(t2.getTextOn().toString());
-                    question.getQuestion_responses_selected().add(t2.getTextOn().toString());
-                    question.getQuestion_responses_selected().remove(t1.getTextOn().toString());
-                    question.getQuestion_responses_selected().remove(t3.getTextOn().toString());
+                    question.getQuestion_responses_selected().remove(t2.getText().toString());
+                    question.getQuestion_responses_selected().add(t2.getText().toString());
+                    question.getQuestion_responses_selected().remove(t1.getText().toString());
+                    question.getQuestion_responses_selected().remove(textDontKnow);
                     t1.setChecked(false);
                     t3.setChecked(false);
                 } else {
-                    question.getQuestion_responses_selected().remove(t2.getTextOn().toString());
+                    question.getQuestion_responses_selected().remove(t2.getText().toString());
                 }
+                updateNext(isAnswered());
+
                 Log.d(TAG, "size=" + question.getQuestion_responses_selected().size());
             }
         });
@@ -115,24 +120,35 @@ public class FragmentHorizontalMultipleSelectSpecial extends FragmentBase {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    question.getQuestion_responses_selected().remove(t3.getTextOn().toString());
-                    question.getQuestion_responses_selected().add(t3.getTextOn().toString());
-                    question.getQuestion_responses_selected().remove(t1.getTextOn().toString());
-                    question.getQuestion_responses_selected().remove(t2.getTextOn().toString());
+                    question.getQuestion_responses_selected().remove(textDontKnow);
+                    question.getQuestion_responses_selected().add(textDontKnow);
+                    question.getQuestion_responses_selected().remove(t1.getText().toString());
+                    question.getQuestion_responses_selected().remove(t2.getText().toString());
                     t1.setChecked(false);
                     t2.setChecked(false);
                 } else {
-                    question.getQuestion_responses_selected().remove(t3.getTextOn().toString());
+                    question.getQuestion_responses_selected().remove(textDontKnow);
                 }
+                updateNext(isAnswered());
                 Log.d(TAG, "size=" + question.getQuestion_responses_selected().size());
             }
         });
     }
+    public boolean isAnswered(){
+        Log.d(TAG, "isAnswered()=" + (question.getQuestion_responses_selected().size() == 4));
+        return question.getQuestion_responses_selected().size()==4;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        updateNext(isAnswered());
+    }
 
     void setListener(final ViewGroup rootView) {
-        setListenerT1T2T3((ToggleButton) rootView.findViewById(R.id.toggleButton_small), (ToggleButton) rootView.findViewById(R.id.toggleButton_large), (ToggleButton) rootView.findViewById(R.id.toggleButton_sl_dontknow));
-        setListenerT1T2T3((ToggleButton) rootView.findViewById(R.id.toggleButton_smooth), (ToggleButton) rootView.findViewById(R.id.toggleButton_rough), (ToggleButton) rootView.findViewById(R.id.toggleButton_sr_dontknow));
-        setListenerT1T2T3((ToggleButton) rootView.findViewById(R.id.toggleButton_soft), (ToggleButton) rootView.findViewById(R.id.toggleButton_hard), (ToggleButton) rootView.findViewById(R.id.toggleButton_sh_dontknow));
-        setListenerT1T2T3((ToggleButton) rootView.findViewById(R.id.toggleButton_heavy), (ToggleButton) rootView.findViewById(R.id.toggleButton_light), (ToggleButton) rootView.findViewById(R.id.toggleButton_hl_dontknow));
+        setListenerT1T2T3((ToggleButton) rootView.findViewById(R.id.toggleButton_small), (ToggleButton) rootView.findViewById(R.id.toggleButton_large), (ToggleButton) rootView.findViewById(R.id.toggleButton_sl_dontknow),"Small_Large_Don't_Know");
+        setListenerT1T2T3((ToggleButton) rootView.findViewById(R.id.toggleButton_smooth), (ToggleButton) rootView.findViewById(R.id.toggleButton_rough), (ToggleButton) rootView.findViewById(R.id.toggleButton_sr_dontknow),"Smooth_Rough_Don't_Know");
+        setListenerT1T2T3((ToggleButton) rootView.findViewById(R.id.toggleButton_soft), (ToggleButton) rootView.findViewById(R.id.toggleButton_hard), (ToggleButton) rootView.findViewById(R.id.toggleButton_sh_dontknow),"Soft_Hard_Don't_Know");
+        setListenerT1T2T3((ToggleButton) rootView.findViewById(R.id.toggleButton_heavy), (ToggleButton) rootView.findViewById(R.id.toggleButton_light), (ToggleButton) rootView.findViewById(R.id.toggleButton_hl_dontknow),"Heavy_Light_Don't_Know");
     }
 }

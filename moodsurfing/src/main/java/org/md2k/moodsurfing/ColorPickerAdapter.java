@@ -18,6 +18,12 @@ public class ColorPickerAdapter extends BaseAdapter {
 	private List<Integer> colorList = new ArrayList<Integer>();
 	// width of grid column
 	int colorGridColumnWidth;
+    public static String colors[][] = { { "822111", "AC2B16", "CC3A21", "E66550", "EFA093", "F6C5BE" },
+            { "AA8831", "D5AE49", "F2C960", "FCDA83", "FCE8B3", "FEF1D1" },
+            { "076239", "0B804B", "149E60", "44B984", "89D3B2", "B9E4D0" },
+            { "1C4587", "285BAC", "3C78D8", "6D9EEB", "A4C2F4", "C9DAF8" },
+            { "41236D", "653E9B", "8E63CE", "B694E8", "D0BCF1", "E4D7F5" },
+            { "000000", "434343", "666666", "999999", "CCCCCC", "EFEFEF" } };
 
 	public ColorPickerAdapter(Context context) {
 		this.context = context;
@@ -26,12 +32,6 @@ public class ColorPickerAdapter extends BaseAdapter {
 		colorGridColumnWidth = 150;
 
 		// for convenience and better reading, we place the colors in a two dimension array
-		String colors[][] = { { "822111", "AC2B16", "CC3A21", "E66550", "EFA093", "F6C5BE" }, 
-				{ "AA8831", "D5AE49", "F2C960", "FCDA83", "FCE8B3", "FEF1D1" },
-				{ "076239", "0B804B", "149E60", "44B984", "89D3B2", "B9E4D0" },
-				{ "1C4587", "285BAC", "3C78D8", "6D9EEB", "A4C2F4", "C9DAF8" },
-				{ "41236D", "653E9B", "8E63CE", "B694E8", "D0BCF1", "E4D7F5" }, 
-				{ "000000", "434343", "666666", "999999", "CCCCCC", "EFEFEF" } };
 
 				colorList = new ArrayList<>();
 

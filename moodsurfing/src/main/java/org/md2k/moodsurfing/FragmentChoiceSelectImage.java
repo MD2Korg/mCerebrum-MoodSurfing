@@ -4,6 +4,8 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
@@ -83,6 +85,23 @@ public class FragmentChoiceSelectImage extends FragmentBase {
             ll.addView(toggleButton);
         }
     }
+    public boolean isAnswered(){
+        if(question.getQuestion_type()==null) return true;
+        if(question.getQuestion_type().equals(Questions.MULTIPLE_SELECT) ||
+                question.getQuestion_type().equals(Questions.MULTIPLE_CHOICE)) {
+            if (question.getQuestion_responses_selected().size() > 0)
+                return true;
+            else return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        updateNext(isAnswered());
+    }
+
     CompoundButton.OnCheckedChangeListener setOnCheckedListenerMultipleSelect(final Question question, final ArrayList<ToggleButton> toggleButtons) {
         return new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -114,6 +133,7 @@ public class FragmentChoiceSelectImage extends FragmentBase {
                     question.setQuestion_responses_selected_random(question.getQuestion_responses_selected().get(k));
                     Log.d(TAG,"random k="+k+" text="+question.getQuestion_responses_selected().get(k)+" set="+question.getQuestion_responses_selected_random());
                 }
+                updateNext(isAnswered());
             }
         };
     }
@@ -132,6 +152,7 @@ public class FragmentChoiceSelectImage extends FragmentBase {
                     question.getQuestion_responses_selected().clear();
                     question.getQuestion_responses_selected().add(buttonView.getText().toString());
                 }
+                updateNext(isAnswered());
             }
         };
     }

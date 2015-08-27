@@ -80,7 +80,7 @@
                 <ToggleButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Don't Know"
+                    android:text="Small_Large_Don't Know"
                     android:id="@+id/toggleButton_sl_dontknow"
                     android:textOff="Don't Know"
                     android:textOn="Don't Know"
@@ -134,7 +134,7 @@
                 <ToggleButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Don't Know"
+                    android:text="Smooth_Rough_Don't Know"
                     android:id="@+id/toggleButton_sr_dontknow"
                     android:textOff="Don't Know"
                     android:textOn="Don't Know"
@@ -188,7 +188,7 @@
                 <ToggleButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Don't Know"
+                    android:text="Soft_Hard_Don't Know"
                     android:id="@+id/toggleButton_sh_dontknow"
                     android:textOff="Don't Know"
                     android:textOn="Don't Know"
@@ -242,7 +242,7 @@
                 <ToggleButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Don't Know"
+                    android:text="Heavy_Light_Don't Know"
                     android:id="@+id/toggleButton_hl_dontknow"
                     android:textOff="Don't Know"
                     android:textOn="Don't Know"

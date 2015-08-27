@@ -5,6 +5,8 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -65,12 +67,20 @@ public class FragmentChoiceColor extends FragmentBase {
         fragment.setArguments(getArgument(exerciseType,pageNumber));
         return fragment;
     }
+    public boolean isAnswered(){
+        Log.d(TAG,"isAnswered()="+(question.getQuestion_responses_selected().size() > 0));
+        return question.getQuestion_responses_selected().size() > 0;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        updateNext(isAnswered());
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -87,8 +97,11 @@ public class FragmentChoiceColor extends FragmentBase {
         gridViewColors.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "position=" + position + " id=" + id);
-//                ColorPickerDialog.this.dismiss();
+                ArrayList<String> color=new ArrayList<String>();
+                color.add(ColorPickerAdapter.colors[position / 6][position % 6]);
+                question.setQuestion_responses_selected(color);
+                updateNext(isAnswered());
+
             }
         });
         return rootView;

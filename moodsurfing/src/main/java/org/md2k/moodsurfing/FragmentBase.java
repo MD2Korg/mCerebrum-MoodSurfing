@@ -52,6 +52,7 @@ public class FragmentBase extends Fragment {
     public static final String ARG_TYPE = "type";
     private static final String TAG = FragmentBase.class.getSimpleName();
     MediaPlayer mPlayer;
+    Menu menu=null;
 
     /**
      * The fragment's page number, which is set to the argument value for {@link #ARG_PAGE}.
@@ -98,8 +99,13 @@ public class FragmentBase extends Fragment {
         }
         ((TextView) rootView.findViewById(R.id.textViewDescription)).setText(question_text);
     }
+    public void updateNext(boolean answered){
+        if(menu!=null)
+        menu.findItem(R.id.action_next).setEnabled(answered);
+    }
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        this.menu=menu;
         Log.d(TAG, "fragmentBase -> onCreateOptionsMenu");
         if(question.getAudio_R_raw()==-1) {
             menu.findItem(R.id.action_audio).setIcon(R.drawable.volume_disable);
