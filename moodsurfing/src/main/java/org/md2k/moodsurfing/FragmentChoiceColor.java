@@ -28,17 +28,17 @@ import java.util.Random;
  * Copyright (c) 2015, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
  * All rights reserved.
- *
+ * <p/>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *
+ * <p/>
  * * Redistributions of source code must retain the above copyright notice, this
  * list of conditions and the following disclaimer.
- *
+ * <p/>
  * * Redistributions in binary form must reproduce the above copyright notice,
  * this list of conditions and the following disclaimer in the documentation
  * and/or other materials provided with the distribution.
- *
+ * <p/>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -64,11 +64,11 @@ public class FragmentChoiceColor extends FragmentBase {
      */
     public static FragmentChoiceColor create(int exerciseType, int pageNumber) {
         FragmentChoiceColor fragment = new FragmentChoiceColor();
-        fragment.setArguments(getArgument(exerciseType,pageNumber));
+        fragment.setArguments(getArgument(exerciseType, pageNumber));
         return fragment;
     }
-    public boolean isAnswered(){
-        Log.d(TAG,"isAnswered()="+(question.getQuestion_responses_selected().size() > 0));
+
+    public boolean isAnswered() {
         return question.getQuestion_responses_selected().size() > 0;
     }
 
@@ -76,11 +76,13 @@ public class FragmentChoiceColor extends FragmentBase {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         updateNext(isAnswered());
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -92,18 +94,18 @@ public class FragmentChoiceColor extends FragmentBase {
         GridView gridViewColors = (GridView) rootView.findViewById(R.id.gridViewColors);
         gridViewColors.setAdapter(new ColorPickerAdapter(getActivity()));
 
-
         // close the dialog on item click
         gridViewColors.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ArrayList<String> color=new ArrayList<String>();
+                ArrayList<String> color = new ArrayList<String>();
                 color.add(ColorPickerAdapter.colors[position / 6][position % 6]);
                 question.setQuestion_responses_selected(color);
                 updateNext(isAnswered());
 
             }
         });
+        Log.d(TAG,"Color->Here size="+question.getQuestion_responses_selected().size());
         return rootView;
     }
 }

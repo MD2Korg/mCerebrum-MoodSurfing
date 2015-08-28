@@ -50,8 +50,8 @@
                     android:id="@+id/toggleButton_small"
                     android:textOff="Small"
                     android:textOn="Small"
-                    android:maxWidth="90dp"
-                    android:minWidth="90dp" />
+                    android:maxWidth="100dp"
+                    android:minWidth="100dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -68,8 +68,8 @@
                     android:id="@+id/toggleButton_large"
                     android:textOff="Large"
                     android:textOn="Large"
-                    android:maxWidth="90dp"
-                    android:minWidth="90dp" />
+                    android:maxWidth="100dp"
+                    android:minWidth="100dp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -80,12 +80,12 @@
                 <ToggleButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Small_Large_Don't Know"
-                    android:id="@+id/toggleButton_sl_dontknow"
-                    android:textOff="Don't Know"
-                    android:textOn="Don't Know"
-                    android:maxWidth="120dp"
-                    android:minWidth="120dp" />
+                    android:text="Small_Large_NA"
+                    android:id="@+id/toggleButton_sl_na"
+                    android:textOff="NA"
+                    android:textOn="NA"
+                    android:maxWidth="100dp"
+                    android:minWidth="100dp" />
 
             </LinearLayout>
             <LinearLayout
@@ -104,8 +104,8 @@
                     android:id="@+id/toggleButton_smooth"
                     android:textOff="Smooth"
                     android:textOn="Smooth"
-                    android:maxWidth="90dp"
-                    android:minWidth="90dp" />
+                    android:maxWidth="100dp"
+                    android:minWidth="100dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -122,8 +122,8 @@
                     android:id="@+id/toggleButton_rough"
                     android:textOff="Rough"
                     android:textOn="Rough"
-                    android:maxWidth="90dp"
-                    android:minWidth="90dp" />
+                    android:maxWidth="100dp"
+                    android:minWidth="100dp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -134,12 +134,12 @@
                 <ToggleButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Smooth_Rough_Don't Know"
-                    android:id="@+id/toggleButton_sr_dontknow"
-                    android:textOff="Don't Know"
-                    android:textOn="Don't Know"
-                    android:maxWidth="120dp"
-                    android:minWidth="120dp" />
+                    android:text="Smooth_Rough_NA"
+                    android:id="@+id/toggleButton_sr_na"
+                    android:textOff="NA"
+                    android:textOn="NA"
+                    android:maxWidth="100dp"
+                    android:minWidth="100dp" />
 
             </LinearLayout>
             <LinearLayout
@@ -158,8 +158,8 @@
                     android:id="@+id/toggleButton_soft"
                     android:textOff="Soft"
                     android:textOn="Soft"
-                    android:maxWidth="90dp"
-                    android:minWidth="90dp" />
+                    android:maxWidth="100dp"
+                    android:minWidth="100dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -176,8 +176,8 @@
                     android:id="@+id/toggleButton_hard"
                     android:textOff="Hard"
                     android:textOn="Hard"
-                    android:maxWidth="90dp"
-                    android:minWidth="90dp" />
+                    android:maxWidth="100dp"
+                    android:minWidth="100dp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -188,12 +188,12 @@
                 <ToggleButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Soft_Hard_Don't Know"
-                    android:id="@+id/toggleButton_sh_dontknow"
-                    android:textOff="Don't Know"
-                    android:textOn="Don't Know"
-                    android:maxWidth="120dp"
-                    android:minWidth="120dp" />
+                    android:text="Soft_Hard_NA"
+                    android:id="@+id/toggleButton_sh_na"
+                    android:textOff="NA"
+                    android:textOn="NA"
+                    android:maxWidth="100dp"
+                    android:minWidth="100dp" />
 
             </LinearLayout>
             <LinearLayout
@@ -212,8 +212,8 @@
                     android:id="@+id/toggleButton_heavy"
                     android:textOff="Heavy"
                     android:textOn="Heavy"
-                    android:maxWidth="90dp"
-                    android:minWidth="90dp" />
+                    android:maxWidth="100dp"
+                    android:minWidth="100dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -230,8 +230,8 @@
                     android:id="@+id/toggleButton_light"
                     android:textOff="Light"
                     android:textOn="Light"
-                    android:maxWidth="90dp"
-                    android:minWidth="90dp" />
+                    android:maxWidth="100dp"
+                    android:minWidth="100dp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -242,12 +242,12 @@
                 <ToggleButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Heavy_Light_Don't Know"
-                    android:id="@+id/toggleButton_hl_dontknow"
-                    android:textOff="Don't Know"
-                    android:textOn="Don't Know"
-                    android:maxWidth="120dp"
-                    android:minWidth="120dp" />
+                    android:text="Heavy_Light_NA"
+                    android:id="@+id/toggleButton_hl_na"
+                    android:textOff="NA"
+                    android:textOn="NA"
+                    android:maxWidth="100dp"
+                    android:minWidth="100dp" />
 
             </LinearLayout>
 

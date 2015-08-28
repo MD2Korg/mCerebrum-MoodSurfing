@@ -82,8 +82,7 @@ public class ActivityMoodSurfingExercise extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        Log.d(TAG,"Activity -> onCreateOptionsMenu");
-        super.onCreateOptionsMenu(menu);
+        Log.d(TAG, "Activity -> onCreateOptionsMenu");
         getMenuInflater().inflate(R.menu.menu_mood_surfing_exercise, menu);
         menu.findItem(R.id.action_previous).setEnabled(mPager.getCurrentItem() > 0);
 
@@ -98,7 +97,13 @@ public class ActivityMoodSurfingExercise extends Activity {
         else
             item.setTitle("Next");
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-        return true;
+        return super.onCreateOptionsMenu(menu);
+    }
+    PopupMenu popup=null;
+    @Override
+    public void onStop(){
+        super.onStop();
+        if(popup!=null) popup.dismiss();
     }
 
     @Override
@@ -106,30 +111,32 @@ public class ActivityMoodSurfingExercise extends Activity {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
-                Window window = getWindow();
-                View v = window.getDecorView();
-                int resId = getResources().getIdentifier("home", "id", "android");
-//                return v.findViewById(resId);
-                PopupMenu popup = new PopupMenu(getActionBar().getThemedContext(), v.findViewById(resId));
-                //Inflating the Popup using xml file
-                popup.getMenuInflater().inflate(R.menu.menu_options, popup.getMenu());
+                if(popup==null) {
+                    Window window = getWindow();
+                    View v = window.getDecorView();
+                    int resId = getResources().getIdentifier("home", "id", "android");
+                    popup = new PopupMenu(getActionBar().getThemedContext(), v.findViewById(resId));
+                    //Inflating the Popup using xml file
+                    popup.getMenuInflater().inflate(R.menu.menu_options, popup.getMenu());
 
-                //registering popup with OnMenuItemClickListener
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.action_home:
-                                NavUtils.navigateUpTo(ActivityMoodSurfingExercise.this, new Intent(ActivityMoodSurfingExercise.this, ActivityMoodSurfingExercises.class));
-                                break;
-                            case R.id.action_supporting_literature:
-                                break;
-                            default:
-                                break;
+                    //registering popup with OnMenuItemClickListener
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (item.getItemId()) {
+                                case R.id.action_home:
+                                    NavUtils.navigateUpTo(ActivityMoodSurfingExercise.this, new Intent(ActivityMoodSurfingExercise.this, ActivityMoodSurfingExercises.class));
+                                    break;
+                                case R.id.action_supporting_literature:
+                                    break;
+                                default:
+                                    break;
+                            }
+                            return true;
                         }
-                        return true;
-                    }
-                });
+                    });
+                }
                 popup.show();
+
                 break;
             case R.id.action_previous:
                 // Go to the previous step in the wizard. If there is no previous step,
@@ -147,13 +154,11 @@ public class ActivityMoodSurfingExercise extends Activity {
                 Log.d(TAG, "Next button" + " current=" + mPager.getCurrentItem());
                 if (!questions[mPager.getCurrentItem()].isValid()) {
                     Toast.makeText(getBaseContext(), "Please answer the question first", Toast.LENGTH_SHORT).show();
-                }
-                else if (mPager.getCurrentItem() >= questions.length - 1) {
+                } else if (mPager.getCurrentItem() >= questions.length - 1) {
                     Questions.getInstance().destroy();
                     //TODO: send data to datakit
                     finish();
-                }
-                else if (questions[mPager.getCurrentItem()].isValid()) {
+                } else if (questions[mPager.getCurrentItem()].isValid()) {
                     mPager.getAdapter().notifyDataSetChanged();
                     mPager.setCurrentItem(findValidQuestionNext(mPager.getCurrentItem()));
                 }

@@ -115,6 +115,7 @@ public class FragmentBase extends Fragment {
             menu.findItem(R.id.action_audio).setIcon(R.drawable.volume_enable);
             menu.findItem(R.id.action_audio).setEnabled(true);
         }
+        updateNext(false);
         super.onCreateOptionsMenu(menu, inflater);
     }
     @Override

@@ -69,7 +69,7 @@ public class Questions {
             new Question(4, "Take a moment and try to visualize a thought or an emotion that you are currently having as a tangible object.\n\nImagine it placed on a table before you. Look at it for a couple of seconds.\n\nWhat does it look like?\n\n Continue observing it and answer the following questions:", null, null, null,-1),
             new Question(5, "Is it...\n(Please select)", MULTIPLE_SELECT_SPECIAL, null, null,-1),
             new Question(6, "What color is it?\n(Please select)", COLOR, null, null,-1),
-            new Question(7, "Does it have a shape?\n(Please select)", MULTIPLE_CHOICE, new ArrayList<String>(Arrays.asList(new String[]{"Yes", "No", "Don't Know"})), null,-1),
+            new Question(7, "Does it have a shape?\n(Please select)", MULTIPLE_CHOICE, new ArrayList<String>(Arrays.asList(new String[]{"Yes", "No", "NA"})), null,-1),
             new Question(8, "Using your imagination to visualize negative thoughts or emotions as concrete objects can be a powerful tool.\n\nYou can use it at any time to learn to accept the existence of you thoughts and feelings and distance yourself from them.", null, null, null,-1),
             new Question(9, "Do you think that this exercise can be useful in dealing with you stress?\n(Please select)", MULTIPLE_CHOICE, new ArrayList<String>(Arrays.asList(new String[]{"Yes", "No"})), null,-1),
             new Question(10, "Congratulations.\n\n You have finished \"Use your Imagination\" Exercise", null, null, null,-1),
