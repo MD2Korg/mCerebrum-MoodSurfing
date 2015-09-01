@@ -9,6 +9,14 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textViewTitle"
+            android:gravity="center"
+            android:textStyle="bold" />
+
         <View
             android:layout_width="wrap_content"
             android:layout_height="20dp"

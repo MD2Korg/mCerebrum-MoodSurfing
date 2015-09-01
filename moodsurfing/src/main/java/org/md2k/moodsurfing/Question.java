@@ -64,6 +64,10 @@ public class Question implements Serializable {
         this.audio_R_raw=audio_R_raw;
     }
 
+    public void setAudio_R_raw(int audio_R_raw) {
+        this.audio_R_raw = audio_R_raw;
+    }
+
     public int getQuestion_id() {
         return question_id;
     }
