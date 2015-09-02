@@ -116,8 +116,8 @@ public class FragmentBase extends Fragment {
                 question.setAudio_R_raw(question.getQuestion_id()==4?R.raw.naa_04_shakiness:R.raw.naa_05_shakiness);
             else if(replace.toLowerCase().contains("tension"))
                 question.setAudio_R_raw(question.getQuestion_id()==4?R.raw.naa_04_tension:R.raw.naa_05_tension);
-
-
+            if(question.getAudio_R_raw()==-1) mPlayer=null;
+            else mPlayer = MediaPlayer.create(getActivity(), question.getAudio_R_raw());
         } else if (question_text.contains("[speaker icon]")) {
             int index = question_text.indexOf("[speaker icon]");
             ImageSpan imageSpan=new ImageSpan(getActivity(), R.drawable.volume_enable);

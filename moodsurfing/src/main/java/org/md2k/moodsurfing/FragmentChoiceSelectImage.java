@@ -164,10 +164,15 @@ public class FragmentChoiceSelectImage extends FragmentBase {
             ((TextView) rootView.findViewById(R.id.textViewTitle)).setText(Constants.BEGIN_TITLE[mExerciseType]);
         else ((TextView) rootView.findViewById(R.id.textViewTitle)).setVisibility(View.GONE);
 
-        if (question.isType(Questions.IMAGE))
+        if (question.isType(Questions.IMAGE)) {
             setTypeImage(rootView, question);
+            rootView.findViewById(R.id.textViewTap).setVisibility(View.GONE);
+        }
         else if (question.isType(Questions.MULTIPLE_CHOICE) || question.isType(Questions.MULTIPLE_SELECT))
             setTypeMultipleChoiceSelect(rootView, question);
+        else{
+            rootView.findViewById(R.id.textViewTap).setVisibility(View.GONE);
+        }
         return rootView;
     }
 

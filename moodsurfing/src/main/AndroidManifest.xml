@@ -6,7 +6,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/logo_moodsurfing"
         android:label="@string/app_name"
-        android:theme="@style/AppThemeLight">
+        android:theme="@style/AppThemeLightBlueLight">
         <activity
             android:name=".ActivityMoodSurfingExercises"
             android:label="@string/app_name">

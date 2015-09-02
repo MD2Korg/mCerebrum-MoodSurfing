@@ -33,6 +33,15 @@
             android:id="@+id/space"
             android:layout_width="match_parent"
             android:layout_height="40px" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Tap to Select"
+            android:id="@+id/textViewTap"
+            android:gravity="center"
+            android:textStyle="italic"
+            android:textColor="@color/lightblue_A700" />
 
         <LinearLayout
             android:id = "@+id/layout_horizontal_multiple_choice"
