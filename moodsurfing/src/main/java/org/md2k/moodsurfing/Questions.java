@@ -79,7 +79,7 @@ public class Questions {
     };
     private Question[] noticeAndAccept = new Question[]{
             new Question(0, "You can use this exercise to help you become aware of and accept any physical sensations caused by stress. You can press the [speaker icon] on any screen to have the instructions read to you.", null, null, null,-1),
-            new Question(1, "Sometimes, you may experience stress physically. Try taking a moment to just notice what is happening to your body.", null, null, null,R.raw.naa_01),
+            new Question(1, "Sometimes, you may experience stress physically. Try taking a moment to just notice what is happening to your body.", IMAGE, new ArrayList<String>(Arrays.asList(new String[]{"body"})), null,R.raw.naa_01),
             new Question(2, "Are you experiencing any ... (select all that apply)", MULTIPLE_SELECT, new ArrayList<String>(Arrays.asList(new String[]{"Tension", "Shakiness", "Pain", "Cigarette craving", "Restlessness", "Irritability", "Other physical sensations", "None of the above"})), null,R.raw.naa_02),
             new Question(3, "Different people experience stress in different ways; for some people the physical manifestations of stress can be as unpleasant as their stressful thoughts.  \n" +
                     "\n" +

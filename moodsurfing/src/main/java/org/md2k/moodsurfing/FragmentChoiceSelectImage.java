@@ -178,7 +178,8 @@ public class FragmentChoiceSelectImage extends FragmentBase {
 
     void setTypeImage(ViewGroup rootView, Question question) {
         LinearLayout ll = (LinearLayout) rootView.findViewById(R.id.layout_horizontal_multiple_choice);
-        ll.setGravity(Gravity.BOTTOM);
+//        ll.setGravity(Gravity.BOTTOM);
+        ll.setGravity(Gravity.CENTER);
         ImageView imageView = new ImageView(this.getActivity());
         imageView.setScaleType(ImageView.ScaleType.CENTER);
         imageView.setAdjustViewBounds(true);
@@ -189,6 +190,9 @@ public class FragmentChoiceSelectImage extends FragmentBase {
             imageView.setImageDrawable(getResources().getDrawable(R.drawable.react));
         if (question.getQuestion_responses().get(0).equals("wave"))
             imageView.setImageDrawable(getResources().getDrawable(R.drawable.wave));
+        if (question.getQuestion_responses().get(0).equals("body"))
+            imageView.setImageDrawable(getResources().getDrawable(R.drawable.body));
+
         ll.addView(imageView);
     }
 
