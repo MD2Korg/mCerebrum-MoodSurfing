@@ -47,8 +47,8 @@ public class Questions {
         return instance;
     }
     void clear(int exerciseType){
-        Question[] questions=getQuestions(exerciseType);
-        for(int i=0;i<questions.length;i++) {
+        Question[] questions =getQuestions(exerciseType);
+        for(int i=0;i< questions.length;i++) {
             questions[i].setQuestion_responses_selected(new ArrayList<String>());
             questions[i].setQuestion_responses_selected_random("");
             questions[i].setPrompt_time(-1);
@@ -62,7 +62,7 @@ public class Questions {
     }
 
     private Question[] useYourImagination = new Question[]{
-            new Question(0, "You can use this exercise to help you use your imagination to manage your unpleasant thoughts or emotions. You can press the [speaker icon] on any screen to have the instructions read to you.", null, null, null, -1),
+            new Question(0, "This exercise can help you manage unpleasant thoughts or emotions by using your imagination.\n\nYou can press the [speaker icon] on any screen to have the instructions read to you.", null, null, null, -1),
             new Question(1, "We all experience unpleasant thoughts or emotions from time to time. Sometimes it is possible to change them, and sometimes it’s not.\n\n\nHave you ever noticed that sometimes trying to get rid of a thought or an emotion actually makes it stronger?\n", MULTIPLE_CHOICE, new ArrayList<String>(Arrays.asList(new String[]{"Yes", "No"})), null,R.raw.uyi_01),
             new Question(2, "So try not to fight them or change the way you feel. Here is an exercise that can be used instead.", null, null, new ArrayList<String>(Arrays.asList(new String[] {"1:Yes"})),R.raw.uyi_02),
             new Question(3, "People manage unpleasant thoughts or emotions in various ways. The following is a useful exercise that can help people notice how they feel when they are stressed without trying to change it or make it go away.", null, null, new ArrayList<String>(Arrays.asList(new String[] {"1:No"})),R.raw.uyi_03),
@@ -70,15 +70,16 @@ public class Questions {
             new Question(5, "Is it...\n", MULTIPLE_SELECT_SPECIAL, null, null,R.raw.uyi_05),
             new Question(6, "What color is it?\n", COLOR, null, null,R.raw.uyi_06),
             new Question(7, "Does it have a shape?\n", MULTIPLE_CHOICE, new ArrayList<String>(Arrays.asList(new String[]{"Yes", "No", "NA"})), null,R.raw.uyi_07),
-            new Question(8, "Continue observing and studying your object for another minute or so. \n" +
-                    "\n" +
-                    "Focusing on the details and trying to describe them can help you distance yourself from negative thoughts or emotions. You can use this strategy at anytime to accept the existence of your negative thoughts or feelings and distance yourself from them.", null, null, null,R.raw.uyi_08),
+            new Question(8, "Continue observing and studying your object for another minute or so. \n\n" +
+                    "Focusing on the details and trying to describe them can help you distance yourself from negative thoughts or emotions.\n\n" +
+                    "You can use this strategy at anytime to accept the existence of your negative thoughts or feelings and distance yourself from them.", null, null, null,R.raw.uyi_08),
             new Question(9, "Do you think that this exercise can be useful in dealing with you stress?\n", MULTIPLE_CHOICE, new ArrayList<String>(Arrays.asList(new String[]{"Yes", "No"})), null,-1),
             new Question(10, "Congratulations.\n\n You have finished \"Use your Imagination\" Exercise", null, null, null,-1),
 
     };
     private Question[] noticeAndAccept = new Question[]{
-            new Question(0, "You can use this exercise to help you become aware of and accept any physical sensations caused by stress. You can press the [speaker icon] on any screen to have the instructions read to you.", null, null, null,-1),
+            new Question(0, "This exercise can help you become more aware of and accept any physical sensations caused by stress.\n\n" +
+                    "You can press the [speaker icon] on any screen to have the instructions read to you.", null, null, null,-1),
             new Question(1, "Sometimes, you may experience stress physically. Try taking a moment to just notice what is happening to your body.", IMAGE, new ArrayList<String>(Arrays.asList(new String[]{"body"})), null,R.raw.naa_01),
             new Question(2, "Are you experiencing any ... (select all that apply)", MULTIPLE_SELECT, new ArrayList<String>(Arrays.asList(new String[]{"Tension", "Shakiness", "Pain", "Cigarette craving", "Restlessness", "Irritability", "Other physical sensations", "None of the above"})), null,R.raw.naa_02),
             new Question(3, "Different people experience stress in different ways; for some people the physical manifestations of stress can be as unpleasant as their stressful thoughts.  \n" +
@@ -89,13 +90,14 @@ public class Questions {
             new Question(6, "Is it changing or does it always stay the same?", MULTIPLE_CHOICE, new ArrayList<String>(Arrays.asList(new String[]{"Changing", "Always the Same"})),new ArrayList<String>(Arrays.asList(new String[] {"2:Tension","2:Shakiness", "2:Pain", "2:Cigarette craving", "2:Restlessness", "2:Irritability", "2:Other physical sensations"})),R.raw.naa_06),
             new Question(7, "Is it strong or weak?", MULTIPLE_CHOICE, new ArrayList<String>(Arrays.asList(new String[]{"Strong", "Weak"})),new ArrayList<String>(Arrays.asList(new String[] {"2:Tension","2:Shakiness", "2:Pain", "2:Cigarette craving", "2:Restlessness", "2:Irritability", "2:Other physical sensations"})),R.raw.naa_07),
             new Question(8, "Are there any places in your body where you don't feel it?", MULTIPLE_CHOICE, new ArrayList<String>(Arrays.asList(new String[]{"Yes", "No"})),new ArrayList<String>(Arrays.asList(new String[] {"2:Tension","2:Shakiness", "2:Pain", "2:Cigarette craving", "2:Restlessness", "2:Irritability", "2:Other physical sensations"})),R.raw.naa_08),
-            new Question(9, "Physical sensations are an important part of how we experience stress and the acceptance of those sensations can help us deal with that stress in a healthy way.", null, null,new ArrayList<String>(Arrays.asList(new String[] {"2:Tension","2:Shakiness", "2:Pain", "2:Cigarette craving", "2:Restlessness", "2:Irritability", "2:Other physical sensations"})),R.raw.naa_09),
+            new Question(9, "Physical sensations are an important part of how we experience stress. The acceptance of those sensations can help us deal with that stress in a healthy way.", null, null,new ArrayList<String>(Arrays.asList(new String[] {"2:Tension","2:Shakiness", "2:Pain", "2:Cigarette craving", "2:Restlessness", "2:Irritability", "2:Other physical sensations"})),R.raw.naa_09),
             new Question(10, "Did you find this exercise useful in dealing with your stress?", MULTIPLE_CHOICE, new ArrayList<String>(Arrays.asList(new String[]{"Yes", "No"})),new ArrayList<String>(Arrays.asList(new String[] {"2:Tension","2:Shakiness", "2:Pain", "2:Cigarette craving", "2:Restlessness", "2:Irritability", "2:Other physical sensations"})),-1),
             new Question(11, "Congratulations.\n\n You have finished \"Notice and Accept\" Exercise", null, null, null,-1),
     };
 
     private Question[] surfTheMood = new Question[]{
-            new Question(0, "You can use this exercise to manage stress through the use of guided imagery. You can press the [speaker icon] on any screen to have the instructions read to you.", null, null, null,-1),
+            new Question(0, "This exercise can help you use guided imagery to manage stress.\n\n" +
+                    "You can press the [speaker icon] on any screen to have the instructions read to you.", null, null, null,-1),
             new Question(1, "Sometimes unpleasant emotions can become very intense and seem somewhat overpowering. \n" +
                     "\n" +
                     "If this happens, you can imagine these emotions as a wave. Let me guide you through this exercise.", null, null, null,R.raw.ms_01),

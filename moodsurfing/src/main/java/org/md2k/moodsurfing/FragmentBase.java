@@ -101,7 +101,7 @@ public class FragmentBase extends Fragment {
                     Questions.getInstance().getQuestion(Constants.NOTICE_AND_ACCEPT, 2).getQuestion_responses_selected_random());
             question_text = question_text.replace("_____", "\"" + replace + "\"");
             ((TextView) rootView.findViewById(R.id.textViewDescription)).setText(question_text);
-            Log.d(TAG,"id="+question.getQuestion_id()+" replace="+replace.toLowerCase());
+            Log.d(TAG,"id="+ question.getQuestion_id()+" replace="+replace.toLowerCase());
             if(replace.toLowerCase().contains("craving"))
                 question.setAudio_R_raw(question.getQuestion_id()==4?R.raw.naa_04_craving:R.raw.naa_05_craving);
             else if(replace.toLowerCase().contains("irritability"))

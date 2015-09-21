@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.app.NavUtils;
@@ -17,6 +16,7 @@ import android.view.Window;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import org.md2k.datakitapi.messagehandler.OnConnectionListener;
 import org.md2k.utilities.Report.Log;
 
 /**
@@ -150,13 +150,13 @@ public class ActivityMoodSurfingExercise extends Activity {
             case R.id.action_next:
                 // Advance to the next step in the wizard. If there is no next step, setCurrentItem
                 // will do nothing.
-                //TODO: next when can be done
                 Log.d(TAG, "Next button" + " current=" + mPager.getCurrentItem());
                 if (!questions[mPager.getCurrentItem()].isValid()) {
                     Toast.makeText(getBaseContext(), "Please answer the question first", Toast.LENGTH_SHORT).show();
                 } else if (mPager.getCurrentItem() >= questions.length - 1) {
+
+                    DataKitHandler.getInstance(this).sendData(new QuestionsJSON(Questions.getInstance(), exerciseType));
                     Questions.getInstance().destroy();
-                    //TODO: send data to datakit
                     finish();
                 } else if (questions[mPager.getCurrentItem()].isValid()) {
                     mPager.getAdapter().notifyDataSetChanged();

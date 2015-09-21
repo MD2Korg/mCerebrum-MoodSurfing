@@ -1,27 +1,18 @@
 package org.md2k.moodsurfing;
 
-import android.app.Fragment;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.CompoundButton;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import org.md2k.datakitapi.time.DateTime;
 import org.md2k.utilities.Report.Log;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 
 /**
@@ -105,7 +96,7 @@ public class FragmentChoiceColor extends FragmentBase {
 
             }
         });
-        Log.d(TAG,"Color->Here size="+question.getQuestion_responses_selected().size());
+        Log.d(TAG,"Color->Here size="+ question.getQuestion_responses_selected().size());
         return rootView;
     }
 }

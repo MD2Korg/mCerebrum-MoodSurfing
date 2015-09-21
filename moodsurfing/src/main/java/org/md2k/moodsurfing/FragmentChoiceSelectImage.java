@@ -1,6 +1,5 @@
 package org.md2k.moodsurfing;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;

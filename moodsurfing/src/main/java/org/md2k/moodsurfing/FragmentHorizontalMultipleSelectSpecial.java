@@ -1,21 +1,14 @@
 package org.md2k.moodsurfing;
 
-import android.app.Fragment;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.ToggleButton;
-
-import org.md2k.utilities.Report.Log;
 
 
 /**
