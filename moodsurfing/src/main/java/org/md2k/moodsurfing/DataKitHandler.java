@@ -1,12 +1,21 @@
 package org.md2k.moodsurfing;
 
 import android.content.Context;
+import android.telephony.TelephonyManager;
+
+import com.google.gson.Gson;
 
 import org.md2k.datakitapi.DataKitApi;
 import org.md2k.datakitapi.datatype.DataType;
+import org.md2k.datakitapi.datatype.DataTypeString;
 import org.md2k.datakitapi.messagehandler.OnConnectionListener;
 import org.md2k.datakitapi.source.datasource.DataSource;
+import org.md2k.datakitapi.source.datasource.DataSourceBuilder;
 import org.md2k.datakitapi.source.datasource.DataSourceClient;
+import org.md2k.datakitapi.source.datasource.DataSourceType;
+import org.md2k.datakitapi.source.platform.PlatformBuilder;
+import org.md2k.datakitapi.source.platform.PlatformType;
+import org.md2k.datakitapi.time.DateTime;
 
 /**
  * Copyright (c) 2015, The University of Memphis, MD2K Center
@@ -60,8 +69,22 @@ public class DataKitHandler {
     public void disconnect(){
         dataKitApi.disconnect();
     }
-    public void sendData(QuestionsJSON questionsJSON){
+    public void sendData(final QuestionsJSON questionsJSON){
+        connectDataKit(new OnConnectionListener() {
+            @Override
+            public void onConnected() {
+                TelephonyManager mngr = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
+                PlatformBuilder platformBuilder=new PlatformBuilder().setType(PlatformType.PHONE).setId(mngr.getDeviceId());
+                DataSourceBuilder dataSourceBuilder=new DataSourceBuilder().setType(DataSourceType.SURVEY).setPlatform(platformBuilder.build());
 
+                DataSourceClient dataSourceClient=register(dataSourceBuilder.build());
+                Gson gson = new Gson();
+                String json = gson.toJson(questionsJSON);
+                DataTypeString dataTypeString = new DataTypeString(DateTime.getDateTime(),json);
+                insert(dataSourceClient,dataTypeString);
+                disconnect();
+            }
+        });
     }
 
 }

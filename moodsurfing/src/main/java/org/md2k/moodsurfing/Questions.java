@@ -36,6 +36,8 @@ public class Questions {
     public static final String MULTIPLE_SELECT = "multiple_select";
     public static final String IMAGE = "image";
     public static final String COLOR = "color";
+    long startTime;
+    long endTime;
 
 
     public static final String MULTIPLE_SELECT_SPECIAL = "multiple_select_special";
@@ -45,6 +47,12 @@ public class Questions {
         if(instance==null)
             instance=new Questions();
         return instance;
+    }
+    void setStartTime(long startTime){
+        this.startTime=startTime;
+    }
+    void setEndTime(long endTime){
+        this.endTime=endTime;
     }
     void clear(int exerciseType){
         Question[] questions =getQuestions(exerciseType);

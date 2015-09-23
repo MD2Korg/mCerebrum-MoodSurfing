@@ -17,7 +17,10 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import org.md2k.datakitapi.messagehandler.OnConnectionListener;
+import org.md2k.datakitapi.time.DateTime;
 import org.md2k.utilities.Report.Log;
+
+import java.util.Date;
 
 /**
  * Copyright (c) 2015, The University of Memphis, MD2K Center
@@ -57,6 +60,7 @@ public class ActivityMoodSurfingExercise extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Questions.getInstance().setStartTime(DateTime.getDateTime());
         exerciseType = getIntent().getIntExtra("type", -1);
         questions = Questions.getInstance().getQuestions(exerciseType);
         setContentView(R.layout.activity_mood_surfing_exercise);
@@ -154,7 +158,7 @@ public class ActivityMoodSurfingExercise extends Activity {
                 if (!questions[mPager.getCurrentItem()].isValid()) {
                     Toast.makeText(getBaseContext(), "Please answer the question first", Toast.LENGTH_SHORT).show();
                 } else if (mPager.getCurrentItem() >= questions.length - 1) {
-
+                    Questions.getInstance().setEndTime(DateTime.getDateTime());
                     DataKitHandler.getInstance(this).sendData(new QuestionsJSON(Questions.getInstance(), exerciseType));
                     Questions.getInstance().destroy();
                     finish();
