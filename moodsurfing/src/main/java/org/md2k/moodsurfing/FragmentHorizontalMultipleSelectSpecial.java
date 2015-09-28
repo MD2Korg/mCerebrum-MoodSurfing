@@ -10,6 +10,8 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ToggleButton;
 
+import org.md2k.datakitapi.time.DateTime;
+
 
 /**
  * Copyright (c) 2015, The University of Memphis, MD2K Center
@@ -67,8 +69,8 @@ public class FragmentHorizontalMultipleSelectSpecial extends FragmentBase {
         final ViewGroup rootView = (ViewGroup) inflater
                 .inflate(R.layout.fragment_screen_horizontal_multiple_select_special, container, false);
         LinearLayout ll = (LinearLayout) rootView.findViewById(R.id.layout_horizontal_multiple_choice);
+        question.setPrompt_time(DateTime.getDateTime());
         setQuestionText(rootView, question);
-
         setListener(rootView);
         return rootView;
     }

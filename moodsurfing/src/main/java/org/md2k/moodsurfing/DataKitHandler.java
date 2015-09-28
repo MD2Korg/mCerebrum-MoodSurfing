@@ -16,6 +16,9 @@ import org.md2k.datakitapi.source.datasource.DataSourceType;
 import org.md2k.datakitapi.source.platform.PlatformBuilder;
 import org.md2k.datakitapi.source.platform.PlatformType;
 import org.md2k.datakitapi.time.DateTime;
+import org.md2k.utilities.Report.Log;
+
+import java.util.ArrayList;
 
 /**
  * Copyright (c) 2015, The University of Memphis, MD2K Center
@@ -44,6 +47,7 @@ import org.md2k.datakitapi.time.DateTime;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 public class DataKitHandler {
+    private static final String TAG = DataKitHandler.class.getSimpleName();
     DataKitApi dataKitApi;
     Context context;
     private static DataKitHandler instance=null;
@@ -61,7 +65,9 @@ public class DataKitHandler {
         return dataKitApi.connect(onConnectionListener);
     }
     void insert(DataSourceClient dataSourceClient, DataType data){
-        dataKitApi.insert(dataSourceClient, data);
+        Log.d(TAG,"insert...");
+        dataKitApi.insert(dataSourceClient, data).await();
+        Log.d(TAG,"...insert");
     }
     DataSourceClient register(DataSource dataSource){
         return dataKitApi.register(dataSource).await();
@@ -70,21 +76,24 @@ public class DataKitHandler {
         dataKitApi.disconnect();
     }
     public void sendData(final QuestionsJSON questionsJSON){
+        Log.d(TAG,"connect: datakit connecting.....");
         connectDataKit(new OnConnectionListener() {
             @Override
             public void onConnected() {
+                Log.d(TAG,"connect: datakit connected");
                 TelephonyManager mngr = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
                 PlatformBuilder platformBuilder=new PlatformBuilder().setType(PlatformType.PHONE).setId(mngr.getDeviceId());
+                Log.d(TAG, "Phone IMEI=" + mngr.getDeviceId());
                 DataSourceBuilder dataSourceBuilder=new DataSourceBuilder().setType(DataSourceType.SURVEY).setPlatform(platformBuilder.build());
-
                 DataSourceClient dataSourceClient=register(dataSourceBuilder.build());
                 Gson gson = new Gson();
                 String json = gson.toJson(questionsJSON);
+                Log.d(TAG, "json=" + json);
                 DataTypeString dataTypeString = new DataTypeString(DateTime.getDateTime(),json);
                 insert(dataSourceClient,dataTypeString);
                 disconnect();
+                instance=null;
             }
         });
     }
-
 }
