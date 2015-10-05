@@ -146,6 +146,7 @@ public class ActivityMoodSurfingExercises extends Activity {
         Log.d(TAG, "onDestroy()... isConnected=" + dataKitHandler.isConnected());
         if (dataKitHandler.isConnected())
             dataKitHandler.disconnect();
+        dataKitHandler.close();
         dataKitHandler = null;
         super.onDestroy();
     }
