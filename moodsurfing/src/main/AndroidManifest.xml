@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.md2k.moodsurfing">
+    package="org.md2k.moodsurfing"
+    xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/logo_moodsurfing"
         android:label="@string/app_name"
+        tools:replace="android:theme"
         android:theme="@style/AppThemeLightBlueLight">
         <activity
             android:name=".ActivityMoodSurfingExercises"

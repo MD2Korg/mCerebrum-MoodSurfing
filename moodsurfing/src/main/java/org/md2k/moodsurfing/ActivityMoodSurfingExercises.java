@@ -3,28 +3,35 @@ package org.md2k.moodsurfing;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.PopupMenu;
+import android.widget.Toast;
+
+import org.md2k.datakitapi.messagehandler.OnConnectionListener;
+import org.md2k.utilities.Report.Log;
+import org.md2k.utilities.UI.UIShow;
+import org.md2k.utilities.datakit.DataKitHandler;
 
 
 /**
  * Copyright (c) 2015, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
  * All rights reserved.
- *
+ * <p/>
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- *
+ * <p/>
  * * Redistributions of source code must retain the above copyright notice, this
  * list of conditions and the following disclaimer.
- *
+ * <p/>
  * * Redistributions in binary form must reproduce the above copyright notice,
  * this list of conditions and the following disclaimer in the documentation
  * and/or other materials provided with the distribution.
- *
+ * <p/>
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -37,13 +44,20 @@ import android.widget.PopupMenu;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 public class ActivityMoodSurfingExercises extends Activity {
+    private static final String TAG = ActivityMoodSurfingExercises.class.getSimpleName();
+    DataKitHandler dataKitHandler = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate()...");
         setContentView(R.layout.activity_mood_surfing_exercises);
+        if (!connectDataKit()) {
+            UIShow.ErrorDialog(ActivityMoodSurfingExercises.this, "DataKit Error", "DataKit is not available.\n\nPlease Install DataKit");
+        }
+
         Button button;
-        button=(Button) findViewById(R.id.buttonImagination);
+        button = (Button) findViewById(R.id.buttonImagination);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +78,7 @@ public class ActivityMoodSurfingExercises extends Activity {
                 startActivity(intent);
             }
         });
-        button= (Button) findViewById(R.id.buttonSurfTheMood);
+        button = (Button) findViewById(R.id.buttonSurfTheMood);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,9 +88,22 @@ public class ActivityMoodSurfingExercises extends Activity {
                 startActivity(intent);
             }
         });
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-
+        if (getActionBar() != null)
+            getActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
+    private boolean connectDataKit() {
+        Log.d(TAG, "connectDataKit()...");
+        if (dataKitHandler == null)
+            dataKitHandler = DataKitHandler.getInstance(getApplicationContext());
+        return dataKitHandler.isConnected() || dataKitHandler.connect(new OnConnectionListener() {
+            @Override
+            public void onConnected() {
+                Log.d(TAG, "Successfully connected");
+            }
+        });
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -95,7 +122,7 @@ public class ActivityMoodSurfingExercises extends Activity {
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.action_home:
-//                                NavUtils.navigateUpTo(ActivityMoodSurfingExerciseBegin.this, new Intent(ActivityMoodSurfingExerciseBegin.this, ActivityMoodSurfingExercises.class));
+//                                NavUtils.navigateUpTo(ActivityMoodSurfingExercises.this, new Intent(ActivityMoodSurfingExercises.this, ActivityMoodSurfingExercises.class));
                                 return true;
                             case R.id.action_supporting_literature:
                                 return true;
@@ -113,4 +140,13 @@ public class ActivityMoodSurfingExercises extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onDestroy() {
+        Log.d(TAG, "onDestroy()...");
+        Log.d(TAG, "onDestroy()... isConnected=" + dataKitHandler.isConnected());
+        if (dataKitHandler.isConnected())
+            dataKitHandler.disconnect();
+        dataKitHandler = null;
+        super.onDestroy();
+    }
 }

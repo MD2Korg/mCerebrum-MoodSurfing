@@ -9,6 +9,7 @@ import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,9 +17,18 @@ import android.view.Window;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import org.md2k.datakitapi.datatype.DataTypeString;
 import org.md2k.datakitapi.messagehandler.OnConnectionListener;
+import org.md2k.datakitapi.source.datasource.DataSourceBuilder;
+import org.md2k.datakitapi.source.datasource.DataSourceClient;
+import org.md2k.datakitapi.source.datasource.DataSourceType;
+import org.md2k.datakitapi.source.platform.PlatformBuilder;
+import org.md2k.datakitapi.source.platform.PlatformType;
 import org.md2k.datakitapi.time.DateTime;
 import org.md2k.utilities.Report.Log;
+import org.md2k.utilities.datakit.DataKitHandler;
 
 import java.util.Date;
 
@@ -128,7 +138,8 @@ public class ActivityMoodSurfingExercise extends Activity {
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()) {
                                 case R.id.action_home:
-                                    NavUtils.navigateUpTo(ActivityMoodSurfingExercise.this, new Intent(ActivityMoodSurfingExercise.this, ActivityMoodSurfingExercises.class));
+                                    finish();
+//                                    NavUtils.navigateUpTo(ActivityMoodSurfingExercise.this, new Intent(ActivityMoodSurfingExercise.this, ActivityMoodSurfingExercises.class));
                                     break;
                                 case R.id.action_supporting_literature:
                                     break;
@@ -159,7 +170,7 @@ public class ActivityMoodSurfingExercise extends Activity {
                     Toast.makeText(getBaseContext(), "Please answer the question first", Toast.LENGTH_SHORT).show();
                 } else if (mPager.getCurrentItem() >= questions.length - 1) {
                     Questions.getInstance().setEndTime(DateTime.getDateTime());
-                    DataKitHandler.getInstance(this).sendData(new QuestionsJSON(Questions.getInstance(), exerciseType));
+                    insertDataToDataKit(new QuestionsJSON(Questions.getInstance(), exerciseType));
                     Questions.getInstance().destroy();
                     finish();
                 } else if (questions[mPager.getCurrentItem()].isValid()) {
@@ -169,6 +180,27 @@ public class ActivityMoodSurfingExercise extends Activity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    void insertDataToDataKit(QuestionsJSON questionsJSON) {
+        DataKitHandler dataKitHandler = DataKitHandler.getInstance(this);
+        if (dataKitHandler.isConnected()) {
+            DataSourceBuilder dataSourceBuilder = createDataSourceBuilder();
+            DataSourceClient dataSourceClient = dataKitHandler.register(dataSourceBuilder);
+            Gson gson = new Gson();
+            String json = gson.toJson(questionsJSON);
+            DataTypeString dataTypeString = new DataTypeString(DateTime.getDateTime(), json);
+            dataKitHandler.insert(dataSourceClient, dataTypeString);
+        } else {
+            Toast.makeText(this, "DataKit is not available. Data could not be saved", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    DataSourceBuilder createDataSourceBuilder() {
+        TelephonyManager mngr = (TelephonyManager) getBaseContext().getSystemService(TELEPHONY_SERVICE);
+        PlatformBuilder platformBuilder = new PlatformBuilder().setType(PlatformType.PHONE).setId(mngr.getDeviceId());
+        Log.d(TAG, "Phone IMEI=" + mngr.getDeviceId());
+        return new DataSourceBuilder().setType(DataSourceType.SURVEY).setPlatform(platformBuilder.build());
     }
 
 
@@ -224,5 +256,6 @@ public class ActivityMoodSurfingExercise extends Activity {
         public int getItemPosition(Object object) {
             return POSITION_NONE;
         }
+
     }
 }
