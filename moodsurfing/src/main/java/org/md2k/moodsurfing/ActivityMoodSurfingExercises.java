@@ -126,6 +126,9 @@ public class ActivityMoodSurfingExercises extends Activity {
                                 return true;
                             case R.id.action_supporting_literature:
                                 return true;
+                            case R.id.action_exit:
+                                finish();
+                                return true;
                             default:
                                 return false;
                         }

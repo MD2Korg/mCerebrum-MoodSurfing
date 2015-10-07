@@ -91,7 +91,8 @@ public class ActivityMoodSurfingExercise extends Activity {
                 invalidateOptionsMenu();
             }
         });
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        if(getActionBar()!=null)
+            getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -129,6 +130,7 @@ public class ActivityMoodSurfingExercise extends Activity {
                     Window window = getWindow();
                     View v = window.getDecorView();
                     int resId = getResources().getIdentifier("home", "id", "android");
+                    if(getActionBar()==null) break;
                     popup = new PopupMenu(getActionBar().getThemedContext(), v.findViewById(resId));
                     //Inflating the Popup using xml file
                     popup.getMenuInflater().inflate(R.menu.menu_options, popup.getMenu());
@@ -142,6 +144,9 @@ public class ActivityMoodSurfingExercise extends Activity {
 //                                    NavUtils.navigateUpTo(ActivityMoodSurfingExercise.this, new Intent(ActivityMoodSurfingExercise.this, ActivityMoodSurfingExercises.class));
                                     break;
                                 case R.id.action_supporting_literature:
+                                    break;
+                                case R.id.action_exit:
+                                    finish();
                                     break;
                                 default:
                                     break;
@@ -171,6 +176,7 @@ public class ActivityMoodSurfingExercise extends Activity {
                 } else if (mPager.getCurrentItem() >= questions.length - 1) {
                     Questions.getInstance().setEndTime(DateTime.getDateTime());
                     insertDataToDataKit(new QuestionsJSON(Questions.getInstance(), exerciseType));
+                    Toast.makeText(this,"Information is Saved",Toast.LENGTH_SHORT).show();
                     Questions.getInstance().destroy();
                     finish();
                 } else if (questions[mPager.getCurrentItem()].isValid()) {
@@ -183,7 +189,7 @@ public class ActivityMoodSurfingExercise extends Activity {
     }
 
     void insertDataToDataKit(QuestionsJSON questionsJSON) {
-        DataKitHandler dataKitHandler = DataKitHandler.getInstance(this);
+        DataKitHandler dataKitHandler = DataKitHandler.getInstance(getApplicationContext());
         if (dataKitHandler.isConnected()) {
             DataSourceBuilder dataSourceBuilder = createDataSourceBuilder();
             DataSourceClient dataSourceClient = dataKitHandler.register(dataSourceBuilder);

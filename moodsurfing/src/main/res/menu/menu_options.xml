@@ -5,4 +5,8 @@
     <item android:id="@+id/action_supporting_literature"
         android:title="Supporting Literature"
         />
+    <item android:id="@+id/action_exit"
+        android:title="Exit"
+        />
+
 </menu>
