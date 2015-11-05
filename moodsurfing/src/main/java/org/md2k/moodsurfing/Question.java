@@ -44,6 +44,7 @@ public class Question implements Serializable {
     private ArrayList<String> question_responses_selected;
     private String question_responses_selected_random;
     private long prompt_time;
+    private long completion_time;
     private int audio_R_raw;
     boolean hasResponseSelected(String response){
         if(question_responses_selected==null) return false;
@@ -182,5 +183,12 @@ public class Question implements Serializable {
         return true;
     }
 
+    public long getCompletion_time() {
+        return completion_time;
+    }
+
+    public void setCompletion_time(long completion_time) {
+        this.completion_time = completion_time;
+    }
 }
 

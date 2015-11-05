@@ -176,10 +176,10 @@ public class ActivityMoodSurfingExercise extends Activity {
                 } else if (mPager.getCurrentItem() >= questions.length - 1) {
                     Questions.getInstance().setEndTime(DateTime.getDateTime());
                     insertDataToDataKit(new QuestionsJSON(Questions.getInstance(), exerciseType));
-                    Toast.makeText(this,"Information is Saved",Toast.LENGTH_SHORT).show();
                     Questions.getInstance().destroy();
                     finish();
                 } else if (questions[mPager.getCurrentItem()].isValid()) {
+                    questions[mPager.getCurrentItem()].setCompletion_time(DateTime.getDateTime());
                     mPager.getAdapter().notifyDataSetChanged();
                     mPager.setCurrentItem(findValidQuestionNext(mPager.getCurrentItem()));
                 }
@@ -197,6 +197,7 @@ public class ActivityMoodSurfingExercise extends Activity {
             String json = gson.toJson(questionsJSON);
             DataTypeString dataTypeString = new DataTypeString(DateTime.getDateTime(), json);
             dataKitHandler.insert(dataSourceClient, dataTypeString);
+            Toast.makeText(this,"Information is Saved",Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "DataKit is not available. Data could not be saved", Toast.LENGTH_LONG).show();
         }

@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import org.md2k.datakitapi.messagehandler.OnConnectionListener;
 import org.md2k.utilities.Report.Log;
-import org.md2k.utilities.UI.UIShow;
+import org.md2k.utilities.UI.AlertDialogs;
 import org.md2k.utilities.datakit.DataKitHandler;
 
 
@@ -53,7 +53,7 @@ public class ActivityMoodSurfingExercises extends Activity {
         Log.d(TAG, "onCreate()...");
         setContentView(R.layout.activity_mood_surfing_exercises);
         if (!connectDataKit()) {
-            UIShow.ErrorDialog(ActivityMoodSurfingExercises.this, "DataKit Error", "DataKit is not available.\n\nPlease Install DataKit");
+            AlertDialogs.showAlertDialogDataKit(ActivityMoodSurfingExercises.this);
         }
 
         Button button;

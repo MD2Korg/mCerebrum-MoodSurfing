@@ -51,7 +51,7 @@ public class QuestionsJSON implements Serializable{
     void prepareQuestion(Question question[]){
         questions=new ArrayList<>();
         for (Question aQuestion : question) {
-            questions.add(new QuestionJSON(aQuestion.getQuestion_text(), aQuestion.getQuestion_responses_selected(), aQuestion.getQuestion_responses_selected_random(),aQuestion.getPrompt_time()));
+            questions.add(new QuestionJSON(aQuestion));
         }
     }
 }
