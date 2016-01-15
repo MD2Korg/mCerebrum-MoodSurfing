@@ -3,14 +3,14 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
     }
-    compileSdkVersion 21
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 23
+    buildToolsVersion '23.0.2'
     defaultConfig {
         applicationId "org.md2k.moodsurfing"
         minSdkVersion 19
         targetSdkVersion 21
-        versionCode 5
-        versionName '0.5.1'
+        versionCode 6
+        versionName '0.5.2'
     }
     buildTypes {
         release {
