@@ -3,7 +3,6 @@ package org.md2k.moodsurfing;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -11,10 +10,11 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import org.md2k.datakitapi.DataKitAPI;
 import org.md2k.datakitapi.messagehandler.OnConnectionListener;
+import org.md2k.datakitapi.messagehandler.OnExceptionListener;
 import org.md2k.utilities.Report.Log;
 import org.md2k.utilities.UI.AlertDialogs;
-import org.md2k.utilities.datakit.DataKitHandler;
 
 
 /**
@@ -45,16 +45,13 @@ import org.md2k.utilities.datakit.DataKitHandler;
  */
 public class ActivityMoodSurfingExercises extends Activity {
     private static final String TAG = ActivityMoodSurfingExercises.class.getSimpleName();
-    DataKitHandler dataKitHandler = null;
+    DataKitAPI dataKitAPI = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate()...");
         setContentView(R.layout.activity_mood_surfing_exercises);
-        if (!connectDataKit()) {
-            AlertDialogs.showAlertDialogDataKit(ActivityMoodSurfingExercises.this);
-        }
 
         Button button;
         button = (Button) findViewById(R.id.buttonImagination);
@@ -92,14 +89,20 @@ public class ActivityMoodSurfingExercises extends Activity {
             getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    private boolean connectDataKit() {
+    private void connectDataKit() {
         Log.d(TAG, "connectDataKit()...");
-        if (dataKitHandler == null)
-            dataKitHandler = DataKitHandler.getInstance(getApplicationContext());
-        return dataKitHandler.isConnected() || dataKitHandler.connect(new OnConnectionListener() {
+        if (dataKitAPI == null)
+            dataKitAPI = DataKitAPI.getInstance(getApplicationContext());
+        if (dataKitAPI.isConnected()) return;
+        dataKitAPI.connect(new OnConnectionListener() {
             @Override
             public void onConnected() {
-                Log.d(TAG, "Successfully connected");
+            }
+        }, new OnExceptionListener() {
+            @Override
+            public void onException(org.md2k.datakitapi.status.Status status) {
+                Toast.makeText(ActivityMoodSurfingExercises.this, "ERROR: Can't connect with datakit...." + status.getStatusMessage(), Toast.LENGTH_LONG).show();
+                finish();
             }
         });
     }
@@ -146,11 +149,11 @@ public class ActivityMoodSurfingExercises extends Activity {
     @Override
     public void onDestroy() {
         Log.d(TAG, "onDestroy()...");
-        Log.d(TAG, "onDestroy()... isConnected=" + dataKitHandler.isConnected());
-        if (dataKitHandler.isConnected())
-            dataKitHandler.disconnect();
-        dataKitHandler.close();
-        dataKitHandler = null;
+        Log.d(TAG, "onDestroy()... isConnected=" + dataKitAPI.isConnected());
+        if (dataKitAPI.isConnected())
+            dataKitAPI.disconnect();
+        dataKitAPI.close();
+        dataKitAPI = null;
         super.onDestroy();
     }
 }

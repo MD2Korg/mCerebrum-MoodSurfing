@@ -19,8 +19,8 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import org.md2k.datakitapi.DataKitAPI;
 import org.md2k.datakitapi.datatype.DataTypeString;
-import org.md2k.datakitapi.messagehandler.OnConnectionListener;
 import org.md2k.datakitapi.source.datasource.DataSourceBuilder;
 import org.md2k.datakitapi.source.datasource.DataSourceClient;
 import org.md2k.datakitapi.source.datasource.DataSourceType;
@@ -28,9 +28,6 @@ import org.md2k.datakitapi.source.platform.PlatformBuilder;
 import org.md2k.datakitapi.source.platform.PlatformType;
 import org.md2k.datakitapi.time.DateTime;
 import org.md2k.utilities.Report.Log;
-import org.md2k.utilities.datakit.DataKitHandler;
-
-import java.util.Date;
 
 /**
  * Copyright (c) 2015, The University of Memphis, MD2K Center
@@ -189,14 +186,14 @@ public class ActivityMoodSurfingExercise extends Activity {
     }
 
     void insertDataToDataKit(QuestionsJSON questionsJSON) {
-        DataKitHandler dataKitHandler = DataKitHandler.getInstance(getApplicationContext());
-        if (dataKitHandler.isConnected()) {
+        DataKitAPI dataKitAPI = DataKitAPI.getInstance(getApplicationContext());
+        if (dataKitAPI.isConnected()) {
             DataSourceBuilder dataSourceBuilder = createDataSourceBuilder();
-            DataSourceClient dataSourceClient = dataKitHandler.register(dataSourceBuilder);
+            DataSourceClient dataSourceClient = dataKitAPI.register(dataSourceBuilder);
             Gson gson = new Gson();
             String json = gson.toJson(questionsJSON);
             DataTypeString dataTypeString = new DataTypeString(DateTime.getDateTime(), json);
-            dataKitHandler.insert(dataSourceClient, dataTypeString);
+            dataKitAPI.insert(dataSourceClient, dataTypeString);
             Toast.makeText(this,"Information is Saved",Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "DataKit is not available. Data could not be saved", Toast.LENGTH_LONG).show();
