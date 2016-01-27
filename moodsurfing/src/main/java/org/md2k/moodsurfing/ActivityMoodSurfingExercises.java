@@ -52,6 +52,7 @@ public class ActivityMoodSurfingExercises extends Activity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate()...");
         setContentView(R.layout.activity_mood_surfing_exercises);
+        connectDataKit();
 
         Button button;
         button = (Button) findViewById(R.id.buttonImagination);
@@ -149,11 +150,13 @@ public class ActivityMoodSurfingExercises extends Activity {
     @Override
     public void onDestroy() {
         Log.d(TAG, "onDestroy()...");
-        Log.d(TAG, "onDestroy()... isConnected=" + dataKitAPI.isConnected());
-        if (dataKitAPI.isConnected())
-            dataKitAPI.disconnect();
-        dataKitAPI.close();
-        dataKitAPI = null;
+        if(dataKitAPI!=null) {
+            Log.d(TAG, "onDestroy()... isConnected=" + dataKitAPI.isConnected());
+            if (dataKitAPI.isConnected())
+                dataKitAPI.disconnect();
+            dataKitAPI.close();
+            dataKitAPI = null;
+        }
         super.onDestroy();
     }
 }
