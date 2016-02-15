@@ -1,8 +1,10 @@
 package org.md2k.moodsurfing;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
@@ -172,6 +174,7 @@ public class ActivityMoodSurfingExercise extends Activity {
                     Toast.makeText(getBaseContext(), "Please answer the question first", Toast.LENGTH_SHORT).show();
                 } else if (mPager.getCurrentItem() >= questions.length - 1) {
                     Questions.getInstance().setEndTime(DateTime.getDateTime());
+                    Questions.getInstance().setStatus(Constants.COMPLETED);
                     insertDataToDataKit(new QuestionsJSON(Questions.getInstance(), exerciseType));
                     Questions.getInstance().destroy();
                     finish();
@@ -231,6 +234,33 @@ public class ActivityMoodSurfingExercise extends Activity {
 
     @Override
     public void onBackPressed() {
+        showAlertDialog();
+
+    }
+    void showAlertDialog() {
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setTitle("Quit?")
+                .setIcon(R.drawable.ic_error_red_50dp)
+                .setMessage("Do you want to quit from this exercise? Exercise will be marked as \"Abandoned\" ")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Questions.getInstance().setEndTime(DateTime.getDateTime());
+                        Questions.getInstance().setStatus(Constants.ABANDONED_BY_USER);
+                        insertDataToDataKit(new QuestionsJSON(Questions.getInstance(), exerciseType));
+                        Questions.getInstance().destroy();
+                        finish();
+
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .create();
+
+        alertDialog.show();
     }
 
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {

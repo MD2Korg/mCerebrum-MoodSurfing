@@ -1,6 +1,7 @@
 package org.md2k.moodsurfing;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 import java.util.ArrayList;
 
 /**
@@ -29,14 +30,16 @@ import java.util.ArrayList;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public class QuestionsJSON implements Serializable{
+public class QuestionsJSON implements Parcelable{
     String exercise_type;
     long start_time;
     long end_time;
+    String status;
     ArrayList<QuestionJSON> questions;
     QuestionsJSON(Questions questions, int exerciseType){
         start_time=questions.startTime;
         end_time=questions.endTime;
+        status=questions.status;
         if(exerciseType==Constants.NOTICE_AND_ACCEPT){
             exercise_type="Notice and Accept";
             prepareQuestion(questions.getQuestions(exerciseType));
@@ -48,10 +51,43 @@ public class QuestionsJSON implements Serializable{
             prepareQuestion(questions.getQuestions(exerciseType));
         }
     }
+
+    protected QuestionsJSON(Parcel in) {
+        exercise_type = in.readString();
+        start_time = in.readLong();
+        end_time = in.readLong();
+        questions = in.createTypedArrayList(QuestionJSON.CREATOR);
+    }
+
+    public static final Creator<QuestionsJSON> CREATOR = new Creator<QuestionsJSON>() {
+        @Override
+        public QuestionsJSON createFromParcel(Parcel in) {
+            return new QuestionsJSON(in);
+        }
+
+        @Override
+        public QuestionsJSON[] newArray(int size) {
+            return new QuestionsJSON[size];
+        }
+    };
+
     void prepareQuestion(Question question[]){
         questions=new ArrayList<>();
         for (Question aQuestion : question) {
             questions.add(new QuestionJSON(aQuestion));
         }
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(exercise_type);
+        dest.writeLong(start_time);
+        dest.writeLong(end_time);
+        dest.writeTypedList(questions);
     }
 }

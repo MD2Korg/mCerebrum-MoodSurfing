@@ -38,6 +38,7 @@ public class Questions {
     public static final String COLOR = "color";
     long startTime;
     long endTime;
+    String status;
 
 
     public static final String MULTIPLE_SELECT_SPECIAL = "multiple_select_special";
@@ -53,6 +54,9 @@ public class Questions {
     }
     void setEndTime(long endTime){
         this.endTime=endTime;
+    }
+    void setStatus(String status){
+        this.status=status;
     }
     void clear(int exerciseType){
         Question[] questions =getQuestions(exerciseType);

@@ -31,6 +31,10 @@ public class Constants {
     public static final int USE_YOUR_IMAGINATION = 0;
     public static final int NOTICE_AND_ACCEPT = 1;
     public static final int SURF_THE_MOOD = 2;
+    public static final String COMPLETED="COMPLETED";
+    public static final String ABANDONED_BY_TIMEOUT ="ABANDONED_BY_TIMEOUT";
+    public static final String MISSED = "MISSED";
+    public static final String ABANDONED_BY_USER="ABANDONED_BY_USER";
 
     public static final String[] BEGIN_TITLE={
             "Use Your Imagination",
