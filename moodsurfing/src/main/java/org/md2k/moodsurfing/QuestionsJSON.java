@@ -56,6 +56,7 @@ public class QuestionsJSON implements Parcelable{
         exercise_type = in.readString();
         start_time = in.readLong();
         end_time = in.readLong();
+        status=in.readString();
         questions = in.createTypedArrayList(QuestionJSON.CREATOR);
     }
 
@@ -88,6 +89,7 @@ public class QuestionsJSON implements Parcelable{
         dest.writeString(exercise_type);
         dest.writeLong(start_time);
         dest.writeLong(end_time);
+        dest.writeString(status);
         dest.writeTypedList(questions);
     }
 }
