@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.md2k.moodsurfing"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="org.md2k.moodsurfing">
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/logo_moodsurfing"
         android:label="@string/app_name"
-        tools:replace="android:theme"
-        android:theme="@style/AppThemeLightBlueLight">
+        android:theme="@style/AppThemeLightBlueLight"
+        tools:replace="android:theme">
         <activity
             android:name=".ActivityMoodSurfingExercises"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -21,12 +21,16 @@
 
         <activity
             android:name=".ActivityMoodSurfingExercise"
-            android:screenOrientation="portrait"
             android:label="@string/title_screen_slide"
+            android:screenOrientation="portrait"
             android:uiOptions="splitActionBarWhenNarrow">
             />
         </activity>
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="1cad146ed866fa3d49c3bc8376ff52af7d9970da" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

@@ -10,11 +10,14 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
+
 import org.md2k.datakitapi.DataKitAPI;
 import org.md2k.datakitapi.messagehandler.OnConnectionListener;
 import org.md2k.datakitapi.messagehandler.OnExceptionListener;
 import org.md2k.utilities.Report.Log;
-import org.md2k.utilities.UI.AlertDialogs;
+
+import io.fabric.sdk.android.Fabric;
 
 
 /**
@@ -50,6 +53,7 @@ public class ActivityMoodSurfingExercises extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         Log.d(TAG, "onCreate()...");
         setContentView(R.layout.activity_mood_surfing_exercises);
         connectDataKit();
