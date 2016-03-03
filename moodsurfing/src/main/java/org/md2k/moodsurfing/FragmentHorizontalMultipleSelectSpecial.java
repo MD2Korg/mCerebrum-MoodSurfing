@@ -7,7 +7,6 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.LinearLayout;
 import android.widget.ToggleButton;
 
 import org.md2k.datakitapi.time.DateTime;
@@ -68,7 +67,7 @@ public class FragmentHorizontalMultipleSelectSpecial extends FragmentBase {
 
         final ViewGroup rootView = (ViewGroup) inflater
                 .inflate(R.layout.fragment_screen_horizontal_multiple_select_special, container, false);
-        LinearLayout ll = (LinearLayout) rootView.findViewById(R.id.layout_horizontal_multiple_choice);
+
         question.setPrompt_time(DateTime.getDateTime());
         setQuestionText(rootView, question);
         setListener(rootView);
