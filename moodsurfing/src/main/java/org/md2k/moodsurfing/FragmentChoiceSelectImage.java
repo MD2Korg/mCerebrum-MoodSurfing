@@ -13,28 +13,28 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import org.md2k.utilities.Report.Log;
 import org.md2k.datakitapi.time.DateTime;
+import org.md2k.utilities.Report.Log;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 
-/**
+/*
  * Copyright (c) 2015, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
  * All rights reserved.
- * <p/>
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * <p/>
+ *
  * * Redistributions of source code must retain the above copyright notice, this
  * list of conditions and the following disclaimer.
- * <p/>
+ *
  * * Redistributions in binary form must reproduce the above copyright notice,
  * this list of conditions and the following disclaimer in the documentation
  * and/or other materials provided with the distribution.
- * <p/>
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -68,7 +68,7 @@ public class FragmentChoiceSelectImage extends FragmentBase {
         super.onCreate(savedInstanceState);
     }
 
-    void setTypeMultipleChoiceSelect(ViewGroup rootView, Question question) {
+    private void setTypeMultipleChoiceSelect(ViewGroup rootView, Question question) {
         Log.d(TAG, "setTypeMultipleChoiceSelect() question=" + question.getQuestion_id() + " " + question.getQuestion_responses().size());
         LinearLayout ll = (LinearLayout) rootView.findViewById(R.id.layout_horizontal_multiple_choice);
         ArrayList<ToggleButton> toggleButtons = new ArrayList<>();
@@ -95,7 +95,7 @@ public class FragmentChoiceSelectImage extends FragmentBase {
         updateNext(isAnswered());
     }
 
-    CompoundButton.OnCheckedChangeListener setOnCheckedListenerMultipleSelect(final Question question, final ArrayList<ToggleButton> toggleButtons) {
+    private CompoundButton.OnCheckedChangeListener setOnCheckedListenerMultipleSelect(final Question question, final ArrayList<ToggleButton> toggleButtons) {
         return new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -161,7 +161,7 @@ public class FragmentChoiceSelectImage extends FragmentBase {
         setLinearLayout(rootView, question);
         if (mPageNumber == 0)
             ((TextView) rootView.findViewById(R.id.textViewTitle)).setText(Constants.BEGIN_TITLE[mExerciseType]);
-        else ((TextView) rootView.findViewById(R.id.textViewTitle)).setVisibility(View.GONE);
+        else rootView.findViewById(R.id.textViewTitle).setVisibility(View.GONE);
 
         if (question.isType(Questions.IMAGE)) {
             setTypeImage(rootView, question);
@@ -175,7 +175,7 @@ public class FragmentChoiceSelectImage extends FragmentBase {
         return rootView;
     }
 
-    void setTypeImage(ViewGroup rootView, Question question) {
+    private void setTypeImage(ViewGroup rootView, Question question) {
         LinearLayout ll = (LinearLayout) rootView.findViewById(R.id.layout_horizontal_multiple_choice);
 //        ll.setGravity(Gravity.BOTTOM);
         ll.setGravity(Gravity.CENTER);

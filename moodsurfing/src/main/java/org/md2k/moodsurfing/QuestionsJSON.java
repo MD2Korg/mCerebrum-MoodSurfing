@@ -2,6 +2,7 @@ package org.md2k.moodsurfing;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 /**
@@ -31,11 +32,23 @@ import java.util.ArrayList;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 public class QuestionsJSON implements Parcelable{
-    String exercise_type;
-    long start_time;
-    long end_time;
-    String status;
-    ArrayList<QuestionJSON> questions;
+    public static final Creator<QuestionsJSON> CREATOR = new Creator<QuestionsJSON>() {
+        @Override
+        public QuestionsJSON createFromParcel(Parcel in) {
+            return new QuestionsJSON(in);
+        }
+
+        @Override
+        public QuestionsJSON[] newArray(int size) {
+            return new QuestionsJSON[size];
+        }
+    };
+    protected String exercise_type;
+    protected long start_time;
+    protected long end_time;
+    protected String status;
+    protected ArrayList<QuestionJSON> questions;
+
     QuestionsJSON(Questions questions, int exerciseType){
         start_time=questions.startTime;
         end_time=questions.endTime;
@@ -59,18 +72,6 @@ public class QuestionsJSON implements Parcelable{
         status=in.readString();
         questions = in.createTypedArrayList(QuestionJSON.CREATOR);
     }
-
-    public static final Creator<QuestionsJSON> CREATOR = new Creator<QuestionsJSON>() {
-        @Override
-        public QuestionsJSON createFromParcel(Parcel in) {
-            return new QuestionsJSON(in);
-        }
-
-        @Override
-        public QuestionsJSON[] newArray(int size) {
-            return new QuestionsJSON[size];
-        }
-    };
 
     void prepareQuestion(Question question[]){
         questions=new ArrayList<>();

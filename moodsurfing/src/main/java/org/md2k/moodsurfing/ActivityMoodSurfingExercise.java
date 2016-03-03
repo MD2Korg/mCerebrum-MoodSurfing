@@ -5,10 +5,8 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.telephony.TelephonyManager;
@@ -31,21 +29,21 @@ import org.md2k.datakitapi.source.platform.PlatformType;
 import org.md2k.datakitapi.time.DateTime;
 import org.md2k.utilities.Report.Log;
 
-/**
+/*
  * Copyright (c) 2015, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
  * All rights reserved.
- * <p/>
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * <p/>
+ *
  * * Redistributions of source code must retain the above copyright notice, this
  * list of conditions and the following disclaimer.
- * <p/>
+ *
  * * Redistributions in binary form must reproduce the above copyright notice,
  * this list of conditions and the following disclaimer in the documentation
  * and/or other materials provided with the distribution.
- * <p/>
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -60,11 +58,12 @@ import org.md2k.utilities.Report.Log;
 public class ActivityMoodSurfingExercise extends Activity {
     private static final String TAG = ActivityMoodSurfingExercise.class.getSimpleName();
     private NonSwipeableViewPager mPager;
-    FragmentBase fragmentBase;
+    private FragmentBase fragmentBase;
 
     private PagerAdapter mPagerAdapter;
     private int exerciseType;
-    Question[] questions = null;
+    private Question[] questions = null;
+    private PopupMenu popup = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +112,7 @@ public class ActivityMoodSurfingExercise extends Activity {
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
         return super.onCreateOptionsMenu(menu);
     }
-    PopupMenu popup=null;
+
     @Override
     public void onStop(){
         super.onStop();
@@ -188,7 +187,7 @@ public class ActivityMoodSurfingExercise extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    void insertDataToDataKit(QuestionsJSON questionsJSON) {
+    private void insertDataToDataKit(QuestionsJSON questionsJSON) {
         DataKitAPI dataKitAPI = DataKitAPI.getInstance(getApplicationContext());
         if (dataKitAPI.isConnected()) {
             DataSourceBuilder dataSourceBuilder = createDataSourceBuilder();
@@ -211,7 +210,7 @@ public class ActivityMoodSurfingExercise extends Activity {
     }
 
 
-    int findValidQuestionPrevious(int cur) {
+    private int findValidQuestionPrevious(int cur) {
         cur--;
         while (cur >= 0) {
             if (!questions[cur].isValidCondition(questions))
@@ -221,7 +220,7 @@ public class ActivityMoodSurfingExercise extends Activity {
         return cur;
     }
 
-    int findValidQuestionNext(int cur) {
+    private int findValidQuestionNext(int cur) {
         cur++;
         while (cur < questions.length) {
             if (!questions[cur].isValidCondition(questions))
@@ -237,7 +236,8 @@ public class ActivityMoodSurfingExercise extends Activity {
         showAlertDialog();
 
     }
-    void showAlertDialog() {
+
+    private void showAlertDialog() {
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setTitle("Quit?")
                 .setIcon(R.drawable.ic_error_red_50dp)

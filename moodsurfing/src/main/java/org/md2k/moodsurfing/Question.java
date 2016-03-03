@@ -37,6 +37,17 @@ import java.util.ArrayList;
  */
 
 public class Question implements Parcelable {
+    public static final Creator<Question> CREATOR = new Creator<Question>() {
+        @Override
+        public Question createFromParcel(Parcel in) {
+            return new Question(in);
+        }
+
+        @Override
+        public Question[] newArray(int size) {
+            return new Question[size];
+        }
+    };
     private static final String TAG = Question.class.getSimpleName();
     private int question_id;
     private String question_type;
@@ -62,27 +73,8 @@ public class Question implements Parcelable {
         audio_R_raw = in.readInt();
     }
 
-    public static final Creator<Question> CREATOR = new Creator<Question>() {
-        @Override
-        public Question createFromParcel(Parcel in) {
-            return new Question(in);
-        }
-
-        @Override
-        public Question[] newArray(int size) {
-            return new Question[size];
-        }
-    };
-
-    boolean hasResponseSelected(String response){
-        if(question_responses_selected==null) return false;
-        for(int i=0;i<question_responses_selected.size();i++)
-            if(question_responses_selected.get(i).equals(response)) return true;
-        return false;
-    }
-
     public Question(int question_id, String question_text, String question_type, ArrayList<String> question_responses, ArrayList<String> condition, int audio_R_raw) {
-        this.question_responses_selected_random="";
+        this.question_responses_selected_random = "";
         this.question_id = question_id;
         this.question_type = question_type;
         this.question_text = question_text;
@@ -90,11 +82,14 @@ public class Question implements Parcelable {
         this.condition = condition;
         this.question_responses_selected = new ArrayList<>();
         prompt_time = -1;
-        this.audio_R_raw=audio_R_raw;
+        this.audio_R_raw = audio_R_raw;
     }
 
-    public void setAudio_R_raw(int audio_R_raw) {
-        this.audio_R_raw = audio_R_raw;
+    private boolean hasResponseSelected(String response) {
+        if(question_responses_selected==null) return false;
+        for(int i=0;i<question_responses_selected.size();i++)
+            if(question_responses_selected.get(i).equals(response)) return true;
+        return false;
     }
 
     public int getQuestion_id() {
@@ -124,18 +119,21 @@ public class Question implements Parcelable {
     public ArrayList<String> getQuestion_responses() {
         return question_responses;
     }
-    public boolean isType(String TYPE){
-        if(question_type==null) return false;
-        if(question_type.equals(TYPE)) return true;
-        return false;
-    }
 
     public void setQuestion_responses(ArrayList<String> question_responses) {
         this.question_responses = question_responses;
     }
 
+    public boolean isType(String TYPE){
+        return TYPE.equals(question_type);
+    }
+
     public int getAudio_R_raw() {
         return audio_R_raw;
+    }
+
+    public void setAudio_R_raw(int audio_R_raw) {
+        this.audio_R_raw = audio_R_raw;
     }
 
     public ArrayList<String> getCondition() {
@@ -169,13 +167,15 @@ public class Question implements Parcelable {
     public void setPrompt_time(long prompt_time) {
         this.prompt_time = prompt_time;
     }
-    boolean isResponseExist(String option) {
+
+    protected boolean isResponseExist(String option) {
         if(question_responses_selected==null) return false;
         for (int i = 0; i < question_responses_selected.size(); i++)
             if (question_responses_selected.get(i).equals(option)) return true;
         return false;
     }
-    boolean isValidCondition(Question[] questions) {
+
+    protected boolean isValidCondition(Question[] questions) {
         if (condition == null) return true;
         for(int i=0;i<condition.size();i++) {
             String[] separated = condition.get(i).split(":");
@@ -184,7 +184,8 @@ public class Question implements Parcelable {
         }
         return false;
     }
-    boolean isValid() {
+
+    protected boolean isValid() {
         Log.d(TAG,"isValid: question_type="+question_type+" selected="+question_responses_selected);
         if(question_responses_selected!=null)
             Log.d(TAG,"isValid: "+question_responses_selected.toString());
@@ -194,18 +195,18 @@ public class Question implements Parcelable {
         if(question_type.equals(Questions.MULTIPLE_SELECT_SPECIAL)){
             if(question_responses_selected==null)
                 return false;
-            else if(question_responses_selected.size()==4) return true;
-            else return false;
+            else
+                return question_responses_selected.size() == 4;
         }
         if (question_type.equals(Questions.MULTIPLE_CHOICE)){
             if(question_responses_selected==null) return false;
-            else if(question_responses_selected.size()==1) return true;
-            else return false;
+            else
+                return question_responses_selected.size() == 1;
         }
         if (question_type.equals(Questions.MULTIPLE_SELECT)){
             if(question_responses_selected==null) return false;
-            else if(question_responses_selected.size()>0) return true;
-            else return false;
+            else
+                return question_responses_selected.size() > 0;
         }
 
         return true;

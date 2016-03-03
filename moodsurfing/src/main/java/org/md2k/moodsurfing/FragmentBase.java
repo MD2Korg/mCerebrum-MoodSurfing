@@ -16,21 +16,21 @@ import android.widget.TextView;
 import org.md2k.utilities.Report.Log;
 
 
-/**
+/*
  * Copyright (c) 2015, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
  * All rights reserved.
- * <p/>
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * <p/>
+ *
  * * Redistributions of source code must retain the above copyright notice, this
  * list of conditions and the following disclaimer.
- * <p/>
+ *
  * * Redistributions in binary form must reproduce the above copyright notice,
  * this list of conditions and the following disclaimer in the documentation
  * and/or other materials provided with the distribution.
- * <p/>
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -54,15 +54,14 @@ public class FragmentBase extends Fragment {
     public static final String ARG_PAGE = "page";
     public static final String ARG_TYPE = "type";
     private static final String TAG = FragmentBase.class.getSimpleName();
-    MediaPlayer mPlayer;
-    Menu menu = null;
-
     /**
      * The fragment's page number, which is set to the argument value for {@link #ARG_PAGE}.
      */
     protected int mPageNumber;
     protected int mExerciseType;
-    Question question = null;
+    protected Question question = null;
+    private MediaPlayer mPlayer;
+    private Menu menu = null;
 
     /**
      * Factory method for this fragment class. Constructs a new fragment for the given page number.
@@ -86,11 +85,11 @@ public class FragmentBase extends Fragment {
         setHasOptionsMenu(true);
     }
 
-    void setQuestionText(ViewGroup rootView, Question question) {
+    protected void setQuestionText(ViewGroup rootView, Question question) {
         String question_text = question.getQuestion_text();
         if (question_text.contains("_____")) {
             String replace = Questions.getInstance().getQuestion(Constants.NOTICE_AND_ACCEPT, 2).getQuestion_responses_selected_random();
-            if (replace.equals("Other physical sensations")) {
+            if ("Other physical sensations".equals(replace)) {
                 replace = "physical sensations";
                 while (question_text.contains("Is it changing or does it"))
                     question_text = question_text.replace("Is it changing or does it", "Are they changing or do they");
@@ -169,7 +168,7 @@ public class FragmentBase extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    void setLinearLayout(ViewGroup rootView, Question question) {
+    protected void setLinearLayout(ViewGroup rootView, Question question) {
         LinearLayout ll = (LinearLayout) rootView.findViewById(R.id.layout_horizontal_multiple_choice);
         if (question.getQuestion_type() != null && question.getQuestion_responses().size() > 3)
             ll.setOrientation(LinearLayout.VERTICAL);
