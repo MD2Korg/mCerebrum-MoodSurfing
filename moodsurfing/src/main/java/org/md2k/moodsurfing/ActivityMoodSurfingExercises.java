@@ -133,10 +133,21 @@ public class ActivityMoodSurfingExercises extends Activity {
 //                                NavUtils.navigateUpTo(ActivityMoodSurfingExercises.this, new Intent(ActivityMoodSurfingExercises.this, ActivityMoodSurfingExercises.class));
                                 return true;
                             case R.id.action_supporting_literature:
+                                Intent intentL=new Intent(ActivityMoodSurfingExercises.this, ActivityLiterature.class);
+                                startActivity(intentL);
                                 return true;
                             case R.id.action_exit:
                                 finish();
                                 return true;
+                            case R.id.action_about:
+                                Intent intent=new Intent(ActivityMoodSurfingExercises.this, ActivityAbout.class);
+                                startActivity(intent);
+                                return true;
+                            case R.id.action_copyright:
+                                Intent intentC=new Intent(ActivityMoodSurfingExercises.this, ActivityCopyright.class);
+                                startActivity(intentC);
+                                return true;
+
                             default:
                                 return false;
                         }

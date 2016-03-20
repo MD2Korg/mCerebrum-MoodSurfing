@@ -1,5 +1,5 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-<string name="app_name">MoodSurfing</string>
+    <string name="app_name">MoodSurfing</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Menu</string>
@@ -17,5 +17,11 @@
     <string name="card_back_title">Angry Red Android</string>
     <string name="card_back_description"><![CDATA[Lorem ipsum dolor sit]]></string>
     <string name="lorem_ipsum"><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et magna ut erat elementum cursus in quis ipsum. Nam faucibus ultrices eros, vel tempor leo semper sit amet. Duis magna quam, congue vitae interdum nec, condimentum ut lectus. Sed commodo venenatis eros a dignissim. Nunc adipiscing turpis nec magna venenatis at ultricies ipsum bibendum. Sed volutpat urna quis nisi vulputate egestas. Etiam eu dui a enim lacinia dapibus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.\n\nPhasellus orci mi, eleifend nec congue id, volutpat at neque. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer semper velit vel leo rutrum sed fermentum elit porta.]]></string>
+    <string name="author">Inbal Nahum-Shani, University of Michigan;\nemail: inbal@umich.edu\n\nIftah Yovel, Hebrew University of Jerusalem;\nemail: iftah.yovel@mail.huji.ac.il\n\nKatie Witkiewitz, University of New Mexico,\nemail: katiew@unm.edu</string>
+    <string name="app_developer">Syed Monowar Hossain, Unversity of Memphis\nemail: monowar.hossain@gmail.com\n\nTimothy Hnat, University of Memphis\ntwhnat@memphis.edu</string>
+    <string name="literature">
+\u2022 Yovel, I., Mor, N., &amp; Shakarov, H. (2014). Examination of the core cognitive components of cognitive behavioral therapy and acceptance and commitment therapy: An analogue investigation. Behavior therapy, 45(4), 482-494.\n\n
+\u2022 Witkiewitz, K., Desai, S. A., Bowen, S., Leigh, B. C., Kirouac, M., &amp; Larimer, M. E. (2014). Development and evaluation of a mobile intervention for heavy drinking and smoking among college students. Psychology of Addictive Behaviors, 28(3), 639.
+    </string>
 
 </resources>

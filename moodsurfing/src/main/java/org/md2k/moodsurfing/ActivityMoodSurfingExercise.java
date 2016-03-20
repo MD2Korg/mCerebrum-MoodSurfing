@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
@@ -142,10 +143,21 @@ public class ActivityMoodSurfingExercise extends Activity {
 //                                    NavUtils.navigateUpTo(ActivityMoodSurfingExercise.this, new Intent(ActivityMoodSurfingExercise.this, ActivityMoodSurfingExercises.class));
                                     break;
                                 case R.id.action_supporting_literature:
+                                    Intent intentL=new Intent(ActivityMoodSurfingExercise.this, ActivityLiterature.class);
+                                    startActivity(intentL);
                                     break;
                                 case R.id.action_exit:
                                     finish();
                                     break;
+                                case R.id.action_about:
+                                    Intent intent=new Intent(ActivityMoodSurfingExercise.this, ActivityAbout.class);
+                                    startActivity(intent);
+                                    break;
+                                case R.id.action_copyright:
+                                    Intent intentC=new Intent(ActivityMoodSurfingExercise.this, ActivityCopyright.class);
+                                    startActivity(intentC);
+                                    break;
+
                                 default:
                                     break;
                             }

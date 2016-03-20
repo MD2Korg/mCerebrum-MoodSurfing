@@ -18,6 +18,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ActivityAbout"
+            android:label="About"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ActivityLiterature"
+            android:label="Literature"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ActivityCopyright"
+            android:label="Copyright"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".ActivityMoodSurfingExercise"
