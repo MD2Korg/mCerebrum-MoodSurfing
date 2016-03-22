@@ -287,6 +287,8 @@ public class ActivityMoodSurfingExercise extends Activity {
                 fragmentBase = FragmentHorizontalMultipleSelectSpecial.create(exerciseType, position);
             } else if (questions[position].isType(Questions.COLOR))
                 fragmentBase = FragmentChoiceColor.create(exerciseType, position);
+            else if(questions[position].isType(Questions.VIDEO))
+                fragmentBase=FragmentVideo.create(exerciseType,position);
             else fragmentBase = FragmentChoiceSelectImage.create(exerciseType, position);
             return fragmentBase;
         }

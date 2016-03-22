@@ -35,6 +35,7 @@ public class Questions {
     public static final String MULTIPLE_CHOICE = "multiple_choice";
     public static final String MULTIPLE_SELECT = "multiple_select";
     public static final String IMAGE = "image";
+    public static final String VIDEO="video";
     public static final String COLOR = "color";
     public static final String MULTIPLE_SELECT_SPECIAL = "multiple_select_special";
     private static Questions instance=null;
@@ -76,17 +77,18 @@ public class Questions {
     };
     private Question[] surfTheMood = new Question[]{
             new Question(0, "This exercise can help you use guided imagery to manage stress.\n\n" +
-                    "You can press the [speaker icon] on any screen to have the instructions read to you.", null, null, null, -1),
-            new Question(1, "Sometimes unpleasant emotions can become very intense and seem somewhat overpowering. \n" +
+                    "Are you currently experiencing any unpleasant emotions?", MULTIPLE_CHOICE, new ArrayList<String>(Arrays.asList(new String[]{"Yes", "No"})), null, -1),
+            new Question(1, "Video page", Questions.VIDEO, new ArrayList<String>(Arrays.asList(new String[]{"peak"})), new ArrayList<String>(Arrays.asList(new String[]{"0:Yes"})), -1),
+            new Question(2, "Sometimes unpleasant emotions can become very intense and seem somewhat overpowering. \n" +
                     "\n" +
-                    "If this happens, you can imagine these emotions as a wave. Let me guide you through this exercise.", null, null, null, R.raw.ms_01),
-            new Question(2, "Begin by relaxing and just focusing on the presence of your emotions. Do not pass judgment; just acknowledge them.\n\n\nImagine your unpleasant emotions as a wave, rising, peaking, and then fading away.", null, null, null, R.raw.ms_02),
-            new Question(3, "Imagine yourself riding that wave. Simply be aware of the movement as it washes through you.\n" +
+                    "If this happens, you can imagine these emotions as a wave. Let me guide you through this exercise.", null, null, new ArrayList<String>(Arrays.asList(new String[]{"0:No"})), R.raw.ms_01),
+            new Question(3, "Begin by relaxing and just focusing on the presence of your emotions. Do not pass judgment; just acknowledge them.\n\n\nImagine your unpleasant emotions as a wave, rising, peaking, and then fading away.", null, null, new ArrayList<String>(Arrays.asList(new String[]{"0:No"})), R.raw.ms_02),
+            new Question(4, "Imagine yourself riding that wave. Simply be aware of the movement as it washes through you.\n" +
                     "\n" +
-                    "Be aware of the sensations without reacting.", IMAGE, new ArrayList<String>(Arrays.asList(new String[]{"react"})), null, R.raw.ms_03),
-            new Question(4, "Continue being aware of your emotions as they ebb and flow like waves.\n\nImagine yourself riding those waves, being present and not reacting as they peak and then fade.", Questions.IMAGE, new ArrayList<String>(Arrays.asList(new String[]{"peak"})), null, R.raw.ms_04),
-            new Question(5, "Do you think this exercise can be useful in dealing with your unpleasant emotions?", MULTIPLE_CHOICE, new ArrayList<String>(Arrays.asList(new String[]{"Yes", "No"})), null, -1),
-            new Question(6, "Congratulations.\n\n You have finished \"Surf the Mood\" Exercise", null, null, null, -1)
+                    "Be aware of the sensations without reacting.", IMAGE, new ArrayList<String>(Arrays.asList(new String[]{"react"})), new ArrayList<String>(Arrays.asList(new String[]{"0:No"})), R.raw.ms_03),
+            new Question(5, "Continue being aware of your emotions as they ebb and flow like waves.\n\nImagine yourself riding those waves, being present and not reacting as they peak and then fade.", Questions.IMAGE, new ArrayList<String>(Arrays.asList(new String[]{"peak"})), new ArrayList<String>(Arrays.asList(new String[]{"0:No"})), R.raw.ms_04),
+            new Question(6, "Do you think this exercise can be useful in dealing with your unpleasant emotions?", MULTIPLE_CHOICE, new ArrayList<String>(Arrays.asList(new String[]{"Yes", "No"})), null, -1),
+            new Question(7, "Congratulations.\n\n You have finished \"Surf the Mood\" Exercise. You can come back to this exercise and surf your mood whenever you experience negative emotions.", null, null, null, -1)
     };
 
     public Questions() {
