@@ -144,7 +144,7 @@ public class ActivityMoodSurfingExercises extends Activity {
                                 startActivity(intent);
                                 return true;
                             case R.id.action_copyright:
-                                Intent intentC=new Intent(ActivityMoodSurfingExercises.this, ActivityCopyright.class);
+                                Intent intentC=new Intent(ActivityMoodSurfingExercises.this, ActivityCopyright1.class);
                                 startActivity(intentC);
                                 return true;
 
