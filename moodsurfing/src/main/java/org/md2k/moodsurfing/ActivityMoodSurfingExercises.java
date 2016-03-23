@@ -2,19 +2,16 @@ package org.md2k.moodsurfing;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.PopupMenu;
-import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 
-import org.md2k.datakitapi.DataKitAPI;
-import org.md2k.datakitapi.messagehandler.OnConnectionListener;
-import org.md2k.datakitapi.messagehandler.OnExceptionListener;
 import org.md2k.utilities.Report.Log;
 
 import io.fabric.sdk.android.Fabric;
@@ -48,15 +45,17 @@ import io.fabric.sdk.android.Fabric;
  */
 public class ActivityMoodSurfingExercises extends Activity {
     private static final String TAG = ActivityMoodSurfingExercises.class.getSimpleName();
-    DataKitAPI dataKitAPI = null;
+    private MyBroadcastReceiver myReceiver;
+    IntentFilter intentFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         Log.d(TAG, "onCreate()...");
+        QuestionAnswer.clear();
+        QuestionAnswer.getInstance(this);
         setContentView(R.layout.activity_mood_surfing_exercises);
-        connectDataKit();
 
         Button button;
         button = (Button) findViewById(R.id.buttonImagination);
@@ -65,6 +64,7 @@ public class ActivityMoodSurfingExercises extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(ActivityMoodSurfingExercises.this, ActivityMoodSurfingExercise.class);
                 intent.putExtra("type", Constants.USE_YOUR_IMAGINATION);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 Questions.getInstance().clear(Constants.USE_YOUR_IMAGINATION);
                 startActivity(intent);
             }
@@ -76,6 +76,7 @@ public class ActivityMoodSurfingExercises extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(ActivityMoodSurfingExercises.this, ActivityMoodSurfingExercise.class);
                 intent.putExtra("type", Constants.NOTICE_AND_ACCEPT);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 Questions.getInstance().clear(Constants.NOTICE_AND_ACCEPT);
                 startActivity(intent);
             }
@@ -86,31 +87,36 @@ public class ActivityMoodSurfingExercises extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(ActivityMoodSurfingExercises.this, ActivityMoodSurfingExercise.class);
                 intent.putExtra("type", Constants.SURF_THE_MOOD);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 Questions.getInstance().clear(Constants.USE_YOUR_IMAGINATION);
                 startActivity(intent);
             }
         });
         if (getActionBar() != null)
             getActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
-    private void connectDataKit() {
-        Log.d(TAG, "connectDataKit()...");
-        if (dataKitAPI == null)
-            dataKitAPI = DataKitAPI.getInstance(getApplicationContext());
-        if (dataKitAPI.isConnected()) return;
-        dataKitAPI.connect(new OnConnectionListener() {
+        intentFilter= new IntentFilter("org.md2k.ema.operation");
+        myReceiver = new MyBroadcastReceiver(new Callback() {
             @Override
-            public void onConnected() {
+            public void onTimeOut() {
+                Log.d(TAG,"timeout...");
+                ActivityMoodSurfingExercise.fa.saveUnsavedData();
+                ActivityMoodSurfingExercise.fa.finish();
+                finish();
             }
-        }, new OnExceptionListener() {
+
             @Override
-            public void onException(org.md2k.datakitapi.status.Status status) {
-                Toast.makeText(ActivityMoodSurfingExercises.this, "ERROR: Can't connect with datakit...." + status.getStatusMessage(), Toast.LENGTH_LONG).show();
+            public void onMissed() {
+                Log.d(TAG,"timeout");
                 finish();
             }
         });
+        if (intentFilter != null) {
+            registerReceiver(myReceiver, intentFilter);
+        }
+
+
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -167,13 +173,10 @@ public class ActivityMoodSurfingExercises extends Activity {
     @Override
     public void onDestroy() {
         Log.d(TAG, "onDestroy()...");
-        if(dataKitAPI!=null) {
-            Log.d(TAG, "onDestroy()... isConnected=" + dataKitAPI.isConnected());
-            if (dataKitAPI.isConnected())
-                dataKitAPI.disconnect();
-            dataKitAPI.close();
-            dataKitAPI = null;
-        }
+        QuestionAnswer.getInstance(this).sendData();
+        QuestionAnswer.clear();
+        if(myReceiver != null)
+            unregisterReceiver(myReceiver);
         super.onDestroy();
     }
 }

@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,15 +17,6 @@ import android.view.Window;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
-import org.md2k.datakitapi.DataKitAPI;
-import org.md2k.datakitapi.datatype.DataTypeString;
-import org.md2k.datakitapi.source.datasource.DataSourceBuilder;
-import org.md2k.datakitapi.source.datasource.DataSourceClient;
-import org.md2k.datakitapi.source.datasource.DataSourceType;
-import org.md2k.datakitapi.source.platform.PlatformBuilder;
-import org.md2k.datakitapi.source.platform.PlatformType;
 import org.md2k.datakitapi.time.DateTime;
 import org.md2k.utilities.Report.Log;
 
@@ -65,13 +55,16 @@ public class ActivityMoodSurfingExercise extends Activity {
     private int exerciseType;
     private Question[] questions = null;
     private PopupMenu popup = null;
-
+    boolean flag;
+    public static ActivityMoodSurfingExercise fa;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Questions.getInstance().setStartTime(DateTime.getDateTime());
+        fa=this;
         exerciseType = getIntent().getIntExtra("type", -1);
         questions = Questions.getInstance().getQuestions(exerciseType);
+        flag=false;
         setContentView(R.layout.activity_mood_surfing_exercise);
         setTitle(Constants.BEGIN_TITLE[exerciseType]);
 
@@ -90,7 +83,7 @@ public class ActivityMoodSurfingExercise extends Activity {
                 invalidateOptionsMenu();
             }
         });
-        if(getActionBar()!=null)
+        if (getActionBar() != null)
             getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -115,9 +108,9 @@ public class ActivityMoodSurfingExercise extends Activity {
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
-        if(popup!=null) popup.dismiss();
+        if (popup != null) popup.dismiss();
     }
 
     @Override
@@ -125,11 +118,11 @@ public class ActivityMoodSurfingExercise extends Activity {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
-                if(popup==null) {
+                if (popup == null) {
                     Window window = getWindow();
                     View v = window.getDecorView();
                     int resId = getResources().getIdentifier("home", "id", "android");
-                    if(getActionBar()==null) break;
+                    if (getActionBar() == null) break;
                     popup = new PopupMenu(getActionBar().getThemedContext(), v.findViewById(resId));
                     //Inflating the Popup using xml file
                     popup.getMenuInflater().inflate(R.menu.menu_options, popup.getMenu());
@@ -143,18 +136,18 @@ public class ActivityMoodSurfingExercise extends Activity {
 //                                    NavUtils.navigateUpTo(ActivityMoodSurfingExercise.this, new Intent(ActivityMoodSurfingExercise.this, ActivityMoodSurfingExercises.class));
                                     break;
                                 case R.id.action_supporting_literature:
-                                    Intent intentL=new Intent(ActivityMoodSurfingExercise.this, ActivityLiterature.class);
+                                    Intent intentL = new Intent(ActivityMoodSurfingExercise.this, ActivityLiterature.class);
                                     startActivity(intentL);
                                     break;
                                 case R.id.action_exit:
                                     finish();
                                     break;
                                 case R.id.action_about:
-                                    Intent intent=new Intent(ActivityMoodSurfingExercise.this, ActivityAbout.class);
+                                    Intent intent = new Intent(ActivityMoodSurfingExercise.this, ActivityAbout.class);
                                     startActivity(intent);
                                     break;
                                 case R.id.action_copyright:
-                                    Intent intentC=new Intent(ActivityMoodSurfingExercise.this, ActivityCopyright1.class);
+                                    Intent intentC = new Intent(ActivityMoodSurfingExercise.this, ActivityCopyright1.class);
                                     startActivity(intentC);
                                     break;
 
@@ -186,8 +179,9 @@ public class ActivityMoodSurfingExercise extends Activity {
                 } else if (mPager.getCurrentItem() >= questions.length - 1) {
                     Questions.getInstance().setEndTime(DateTime.getDateTime());
                     Questions.getInstance().setStatus(Constants.COMPLETED);
-                    insertDataToDataKit(new QuestionsJSON(Questions.getInstance(), exerciseType));
+                    QuestionAnswer.getInstance(ActivityMoodSurfingExercise.this).add(new QuestionsJSON(Questions.getInstance(), exerciseType));
                     Questions.getInstance().destroy();
+                    flag=true;
                     finish();
                 } else if (questions[mPager.getCurrentItem()].isValid()) {
                     questions[mPager.getCurrentItem()].setCompletion_time(DateTime.getDateTime());
@@ -198,29 +192,6 @@ public class ActivityMoodSurfingExercise extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    private void insertDataToDataKit(QuestionsJSON questionsJSON) {
-        DataKitAPI dataKitAPI = DataKitAPI.getInstance(getApplicationContext());
-        if (dataKitAPI.isConnected()) {
-            DataSourceBuilder dataSourceBuilder = createDataSourceBuilder();
-            DataSourceClient dataSourceClient = dataKitAPI.register(dataSourceBuilder);
-            Gson gson = new Gson();
-            String json = gson.toJson(questionsJSON);
-            DataTypeString dataTypeString = new DataTypeString(DateTime.getDateTime(), json);
-            dataKitAPI.insert(dataSourceClient, dataTypeString);
-            Toast.makeText(this,"Information is Saved",Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "DataKit is not available. Data could not be saved", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    DataSourceBuilder createDataSourceBuilder() {
-        TelephonyManager mngr = (TelephonyManager) getBaseContext().getSystemService(TELEPHONY_SERVICE);
-        PlatformBuilder platformBuilder = new PlatformBuilder().setType(PlatformType.PHONE).setId(mngr.getDeviceId());
-        Log.d(TAG, "Phone IMEI=" + mngr.getDeviceId());
-        return new DataSourceBuilder().setType(DataSourceType.SURVEY).setPlatform(platformBuilder.build());
-    }
-
 
     private int findValidQuestionPrevious(int cur) {
         cur--;
@@ -259,7 +230,8 @@ public class ActivityMoodSurfingExercise extends Activity {
                     public void onClick(DialogInterface dialog, int which) {
                         Questions.getInstance().setEndTime(DateTime.getDateTime());
                         Questions.getInstance().setStatus(Constants.ABANDONED_BY_USER);
-                        insertDataToDataKit(new QuestionsJSON(Questions.getInstance(), exerciseType));
+                        QuestionAnswer.getInstance(ActivityMoodSurfingExercise.this).add(new QuestionsJSON(Questions.getInstance(), exerciseType));
+                        flag=true;
                         Questions.getInstance().destroy();
                         finish();
 
@@ -287,8 +259,8 @@ public class ActivityMoodSurfingExercise extends Activity {
                 fragmentBase = FragmentHorizontalMultipleSelectSpecial.create(exerciseType, position);
             } else if (questions[position].isType(Questions.COLOR))
                 fragmentBase = FragmentChoiceColor.create(exerciseType, position);
-            else if(questions[position].isType(Questions.VIDEO))
-                fragmentBase=FragmentVideo.create(exerciseType,position);
+            else if (questions[position].isType(Questions.VIDEO))
+                fragmentBase = FragmentVideo.create(exerciseType, position);
             else fragmentBase = FragmentChoiceSelectImage.create(exerciseType, position);
             return fragmentBase;
         }
@@ -305,5 +277,24 @@ public class ActivityMoodSurfingExercise extends Activity {
             return POSITION_NONE;
         }
 
+    }
+    public void saveUnsavedData(){
+        Questions.getInstance().setEndTime(DateTime.getDateTime());
+        Questions.getInstance().setStatus(Constants.ABANDONED_BY_TIMEOUT);
+        QuestionAnswer.getInstance(ActivityMoodSurfingExercise.this).add(new QuestionsJSON(Questions.getInstance(), exerciseType));
+        Questions.getInstance().destroy();
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.d(TAG,"onDestroy()...");
+/*        if(flag==false){
+            Questions.getInstance().setEndTime(DateTime.getDateTime());
+            Questions.getInstance().setStatus(Constants.ABANDONED_BY_TIMEOUT);
+            QuestionAnswer.getInstance(ActivityMoodSurfingExercise.this).add(new QuestionsJSON(Questions.getInstance(), exerciseType));
+            flag=true;
+        }
+*/
+        super.onDestroy();
     }
 }
