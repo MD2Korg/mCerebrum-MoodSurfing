@@ -223,8 +223,8 @@ public class ActivityMoodSurfingExercise extends Activity {
     private void showAlertDialog() {
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setTitle("Quit?")
-                .setIcon(R.drawable.ic_error_red_50dp)
-                .setMessage("Do you want to quit from this exercise? Exercise will be marked as \"Abandoned\" ")
+                .setIcon(R.drawable.ic_error_grey_50dp)
+                .setMessage("Do you want to quit from this exercise?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
