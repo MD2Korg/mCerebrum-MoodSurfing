@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.core.CrashlyticsCore;
 
 import org.md2k.utilities.Report.Log;
 
@@ -51,7 +52,16 @@ public class ActivityMoodSurfingExercises extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
+
+        // Set up Crashlytics, disabled for debug builds
+        Crashlytics crashlyticsKit = new Crashlytics.Builder()
+                .core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
+                .build();
+
+        // Initialize Fabric with the debug-disabled crashlytics.
+        Fabric.with(this, crashlyticsKit);
+
+
         Log.d(TAG, "onCreate()...");
         QuestionAnswer.clear();
         QuestionAnswer.getInstance(this);
