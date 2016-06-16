@@ -4,11 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
-import org.md2k.datakitapi.datatype.DataTypeJSONObject;
-import org.md2k.datakitapi.time.DateTime;
 
 import java.util.ArrayList;
 
@@ -39,12 +34,11 @@ public class QuestionAnswer {
     }
     void sendData(){
         Gson gson = new Gson();
-        JsonObject sample = new JsonParser().parse(gson.toJson(question_answers)).getAsJsonObject();
-        DataTypeJSONObject dataTypeJSONObject = new DataTypeJSONObject(DateTime.getDateTime(), sample);
+        String sample = gson.toJson(question_answers);
         Intent intent=new Intent();
         intent.setAction("org.md2k.ema_scheduler.response");
         intent.putExtra("TYPE","RESULT");
-        intent.putExtra("ANSWER",dataTypeJSONObject);
+        intent.putExtra("ANSWER",sample);
         intent.putExtra("STATUS",status);
         intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
         context.sendBroadcast(intent);

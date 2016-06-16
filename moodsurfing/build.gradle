@@ -1,3 +1,4 @@
+version = '1.0.0'
 buildscript {
     repositories {
         maven { url 'https://maven.fabric.io/public' }
@@ -9,6 +10,7 @@ buildscript {
 }
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
+apply from: 'versioning.gradle'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
@@ -24,8 +26,8 @@ android {
         applicationId "org.md2k.moodsurfing"
         minSdkVersion 19
         targetSdkVersion 21
-        versionCode 13
-        versionName '0.7.3'
+        versionCode buildVersionCode()
+        versionName version
     }
     buildTypes {
         release {
