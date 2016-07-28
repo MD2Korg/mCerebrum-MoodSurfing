@@ -59,7 +59,7 @@ public class ActivityMoodSurfingExercises extends Activity {
                 .build();
 
         // Initialize Fabric with the debug-disabled crashlytics.
-        Fabric.with(this, crashlyticsKit);
+        Fabric.with(this, crashlyticsKit, new Crashlytics());
 
 
         Log.d(TAG, "onCreate()...");
@@ -109,8 +109,10 @@ public class ActivityMoodSurfingExercises extends Activity {
             @Override
             public void onTimeOut() {
                 Log.d(TAG,"timeout...");
-                ActivityMoodSurfingExercise.fa.saveUnsavedData();
-                ActivityMoodSurfingExercise.fa.finish();
+                if(ActivityMoodSurfingExercise.fa!=null) {
+                    ActivityMoodSurfingExercise.fa.saveUnsavedData();
+                    ActivityMoodSurfingExercise.fa.finish();
+                }
                 finish();
             }
 
