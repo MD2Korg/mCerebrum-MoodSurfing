@@ -100,8 +100,10 @@ public class FragmentVideo extends FragmentBase {
         vd.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
-                if(isVisible)
-                mc.show(1000000);
+                if(isVisible) {
+                    mc.show(1000000);
+                    vd.start();
+                }
             }
         });
     }
