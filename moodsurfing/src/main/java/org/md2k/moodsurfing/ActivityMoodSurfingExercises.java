@@ -102,6 +102,14 @@ public class ActivityMoodSurfingExercises extends Activity {
                 startActivity(intent);
             }
         });
+        button = (Button) findViewById(R.id.button_exit);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         if (getActionBar() != null)
             getActionBar().setDisplayHomeAsUpEnabled(true);
         intentFilter= new IntentFilter("org.md2k.ema.operation");
