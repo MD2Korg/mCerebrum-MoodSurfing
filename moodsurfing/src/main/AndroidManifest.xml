@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="org.md2k.moodsurfing">
+
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <application
         android:allowBackup="true"
@@ -18,23 +19,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ActivityAbout"
+        <activity
+            android:name=".ActivityAbout"
             android:label="About"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ActivityLiterature"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivityLiterature"
             android:label="Literature"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ActivityCopyright1"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivityCopyright1"
             android:label="Copyright"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="org.md2k.utilities.permission.ActivityPermission"
+            android:enabled="true"
+            android:exported="true"
+            android:label="Permission"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".ActivityMoodSurfingExercise"
             android:label="@string/title_screen_slide"
             android:screenOrientation="portrait"
-            android:uiOptions="splitActionBarWhenNarrow">
-            />
-        </activity>
+            android:uiOptions="splitActionBarWhenNarrow"/>
 
         <meta-data
             android:name="io.fabric.ApiKey"

@@ -13,7 +13,9 @@ import android.widget.PopupMenu;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 
+import org.md2k.datakitapi.messagehandler.ResultCallback;
 import org.md2k.utilities.Report.Log;
+import org.md2k.utilities.permission.PermissionInfo;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -48,6 +50,7 @@ public class ActivityMoodSurfingExercises extends Activity {
     private static final String TAG = ActivityMoodSurfingExercises.class.getSimpleName();
     private MyBroadcastReceiver myReceiver;
     IntentFilter intentFilter;
+    boolean isPermission=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +63,22 @@ public class ActivityMoodSurfingExercises extends Activity {
 
         // Initialize Fabric with the debug-disabled crashlytics.
         Fabric.with(this, crashlyticsKit, new Crashlytics());
-
-
+        setContentView(R.layout.activity_mood_surfing_exercises);
+        PermissionInfo permissionInfo=new PermissionInfo();
+        permissionInfo.getPermissions(this, new ResultCallback<Boolean>() {
+            @Override
+            public void onResult(Boolean result) {
+                isPermission=result;
+                if(result)
+                    load();
+                else finish();
+            }
+        });
+    }
+    void load(){
         Log.d(TAG, "onCreate()...");
         QuestionAnswer.clear();
         QuestionAnswer.getInstance(this);
-        setContentView(R.layout.activity_mood_surfing_exercises);
 
         Button button;
         button = (Button) findViewById(R.id.buttonImagination);
@@ -133,8 +146,6 @@ public class ActivityMoodSurfingExercises extends Activity {
         if (intentFilter != null) {
             registerReceiver(myReceiver, intentFilter);
         }
-
-
     }
 
 
@@ -193,10 +204,12 @@ public class ActivityMoodSurfingExercises extends Activity {
     @Override
     public void onDestroy() {
         Log.d(TAG, "onDestroy()...");
-        QuestionAnswer.getInstance(this).sendData();
-        QuestionAnswer.clear();
-        if(myReceiver != null)
-            unregisterReceiver(myReceiver);
+        if(isPermission) {
+            QuestionAnswer.getInstance(this).sendData();
+            QuestionAnswer.clear();
+            if (myReceiver != null)
+                unregisterReceiver(myReceiver);
+        }
         super.onDestroy();
     }
 }
