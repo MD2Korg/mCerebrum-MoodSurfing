@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
@@ -169,6 +170,10 @@ public class ActivityMoodSurfingExercise extends Activity {
                 Log.d(TAG, "Previous button: " + mPager.getCurrentItem());
                 mPager.getAdapter().notifyDataSetChanged();
                 mPager.setCurrentItem(findValidQuestionPrevious(mPager.getCurrentItem()));
+                if(Questions.VIDEO.equals(questions[mPager.getCurrentItem()].getQuestion_type()))
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                else
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 break;
             case R.id.action_next:
                 // Advance to the next step in the wizard. If there is no next step, setCurrentItem
@@ -188,6 +193,10 @@ public class ActivityMoodSurfingExercise extends Activity {
                     mPager.getAdapter().notifyDataSetChanged();
                     mPager.setCurrentItem(findValidQuestionNext(mPager.getCurrentItem()));
                 }
+                if(Questions.VIDEO.equals(questions[mPager.getCurrentItem()].getQuestion_type()))
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                else
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -259,8 +268,9 @@ public class ActivityMoodSurfingExercise extends Activity {
                 fragmentBase = FragmentHorizontalMultipleSelectSpecial.create(exerciseType, position);
             } else if (questions[position].isType(Questions.COLOR))
                 fragmentBase = FragmentChoiceColor.create(exerciseType, position);
-            else if (questions[position].isType(Questions.VIDEO))
+            else if (questions[position].isType(Questions.VIDEO)) {
                 fragmentBase = FragmentVideo.create(exerciseType, position);
+            }
             else fragmentBase = FragmentChoiceSelectImage.create(exerciseType, position);
             return fragmentBase;
         }

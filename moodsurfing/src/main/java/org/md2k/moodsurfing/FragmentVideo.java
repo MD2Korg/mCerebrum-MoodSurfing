@@ -101,7 +101,7 @@ public class FragmentVideo extends FragmentBase {
             @Override
             public void onPrepared(MediaPlayer mp) {
                 if(isVisible) {
-                    mc.show(1000000);
+//                    mc.show(1000000);
                     vd.start();
                 }
             }
@@ -117,12 +117,12 @@ public class FragmentVideo extends FragmentBase {
             isVisible=true;
             if (vd != null && mc != null) {
                 vd.requestFocus();
-                mc.show(1000000);
+  //              mc.show(1000000);
             }
         } else {
             isVisible=false;
             if (vd != null && mc != null) {
-                mc.hide();
+//                mc.hide();
                 vd.setMediaController(null);
             }
         }
